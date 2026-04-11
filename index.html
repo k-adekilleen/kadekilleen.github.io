@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kade Killeen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="nav-logo" aria-label="Home">K</a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-upper">
+                <h1>Hi, I'm Kade.</h1>
+                <p class="hero-tagline">Graduate student. Incoming consultant. Interested in defense, emerging tech, global security, and investing.</p>
+            </div>
+
+            <div class="hero-globe" aria-hidden="true">
+                <canvas id="globe"></canvas>
+            </div>
+
+            <div class="hero-lower">
+                <p class="hero-bio">Cambridge MPhil candidate and MIT graduate working at the intersection of defense, technology, and strategy. Currently researching emerging defense technology policy and innovation strategy at the University of Cambridge, with experience spanning BCG, Microsoft, and AI/ML research for the U.S. Air Force and Space Force.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Kade Killeen</p>
+            <ul class="footer-links">
+                <li><a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://substack.com/@yourusername" target="_blank" rel="noopener noreferrer">Substack</a></li>
+                <li><a href="mailto:your@email.com">Email</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script src="globe.js"></script>
+</body>
+</html>
