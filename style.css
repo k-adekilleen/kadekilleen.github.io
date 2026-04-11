@@ -234,23 +234,62 @@ main:has(.hero) {
     letter-spacing: -0.02em;
 }
 
-/* ===== About ===== */
-.about-content {
-    max-width: 650px;
+/* ===== About Page ===== */
+.about-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
 }
 
-.about-block {
-    margin-bottom: 2.5rem;
+.about-page > h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
 }
 
-.about-block h2 {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-}
-
-.about-block p {
+.about-intro {
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
     margin-bottom: 1rem;
 }
+
+.about-headshot {
+    width: 300px;
+    height: 300px;
+    border-radius: 12px;
+    object-fit: cover;
+    object-position: center 20%;
+    flex-shrink: 0;
+    border: 2px solid rgba(74, 144, 217, 0.3);
+}
+
+.about-bio p {
+    margin-bottom: 1rem;
+}
+
+.section-divider {
+    border: none;
+    border-top: 1px solid rgba(74, 144, 217, 0.3);
+    max-width: 200px;
+    margin: 3rem auto;
+}
+
+.about-section {
+    max-width: none;
+    margin-bottom: 1rem;
+}
+
+.about-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.about-section p {
+    margin-bottom: 1rem;
+}
+
 
 /* ===== Projects ===== */
 .project-grid {
@@ -382,6 +421,17 @@ footer {
 
     .hero-globe {
         width: 280px;
+    }
+
+    .about-intro {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .about-headshot {
+        width: 220px;
+        height: 220px;
     }
 
     .hero-tagline {
