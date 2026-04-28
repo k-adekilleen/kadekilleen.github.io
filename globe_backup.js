@@ -67,115 +67,6 @@
     innerSphere.renderOrder = 0;
     root.add(innerSphere);
 
-    // ---- Lat/lon to 3D helper ----
-    function latLonToVec3(lat, lon, r) {
-        const phi = (90 - lat) * (Math.PI / 180);
-        const theta = (lon + 180) * (Math.PI / 180);
-        return new THREE.Vector3(
-            -r * Math.sin(phi) * Math.cos(theta),
-            r * Math.cos(phi),
-            r * Math.sin(phi) * Math.sin(theta)
-        );
-    }
-
-    // ---- Continent outlines (simplified) ----
-    // Each continent is an array of [lat, lon] pairs forming a rough outline
-    const continents = [
-        // North America
-        [[60,-140],[65,-168],[72,-168],[71,-155],[60,-140],[55,-130],[48,-125],[35,-120],
-         [30,-115],[25,-110],[20,-105],[15,-95],[18,-88],[20,-87],[22,-85],[25,-80],
-         [30,-82],[28,-77],[35,-75],[40,-72],[45,-67],[47,-60],[50,-57],[52,-56],
-         [55,-60],[58,-65],[60,-70],[63,-75],[65,-85],[68,-95],[70,-105],[72,-120],
-         [70,-140],[65,-145],[60,-148],[60,-140]],
-        // South America
-        [[12,-70],[10,-75],[7,-77],[2,-80],[-5,-80],[-7,-78],[-15,-76],[-20,-70],
-         [-25,-65],[-30,-60],[-35,-57],[-40,-62],[-45,-65],[-50,-68],[-55,-67],
-         [-55,-64],[-50,-60],[-45,-55],[-40,-50],[-35,-48],[-30,-48],[-25,-45],
-         [-20,-40],[-15,-38],[-10,-35],[-5,-35],[0,-50],[5,-60],[8,-62],[10,-67],[12,-70]],
-        // Europe
-        [[36,-10],[38,-8],[40,-5],[43,0],[46,2],[48,5],[50,4],[52,5],[54,8],[55,12],
-         [57,10],[58,12],[60,5],[62,5],[65,12],[68,15],[70,20],[70,28],[65,28],
-         [60,30],[57,28],[55,25],[54,20],[52,15],[50,14],[48,16],[46,15],[44,12],
-         [42,14],[40,20],[38,22],[36,28],[35,25],[36,22],[38,18],[37,15],[38,12],
-         [36,5],[36,0],[36,-5],[36,-10]],
-        // Africa
-        [[35,-5],[37,-2],[37,10],[32,13],[30,10],[25,18],[20,17],[15,18],[10,15],
-         [5,10],[2,10],[0,9],[-5,12],[-10,14],[-15,17],[-20,25],[-25,30],[-30,32],
-         [-35,28],[-35,20],[-30,18],[-25,15],[-20,12],[-15,12],[-10,10],[-5,8],
-         [0,2],[5,-5],[5,-8],[8,-10],[10,-15],[15,-17],[20,-17],[25,-15],[30,-10],
-         [32,-5],[35,-5]],
-        // Asia (simplified)
-        [[42,28],[45,35],[42,45],[38,48],[35,52],[25,55],[20,58],[15,62],[10,68],
-         [8,77],[10,80],[15,80],[20,85],[25,90],[22,100],[18,105],[10,105],[5,103],
-         [1,104],[-8,115],[-5,120],[0,120],[5,115],[10,115],[15,120],[20,115],
-         [25,120],[30,122],[35,130],[38,135],[40,140],[42,145],[45,143],[50,140],
-         [53,142],[55,135],[60,140],[63,145],[65,150],[67,160],[68,170],[70,170],
-         [72,160],[72,140],[70,130],[68,120],[65,100],[62,80],[60,65],[58,55],
-         [55,40],[50,38],[45,30],[42,28]],
-        // Australia
-        [[-12,130],[-15,125],[-18,122],[-22,114],[-28,114],[-32,116],[-35,118],
-         [-38,145],[-37,150],[-33,152],[-28,153],[-24,150],[-20,148],[-18,146],
-         [-16,145],[-14,142],[-12,137],[-12,130]],
-        // Greenland
-        [[60,-45],[62,-50],[65,-53],[68,-55],[70,-55],[72,-52],[75,-50],[78,-55],
-         [80,-60],[82,-45],[82,-30],[80,-20],[78,-18],[75,-20],[72,-22],[70,-25],
-         [68,-30],[65,-38],[62,-42],[60,-45]],
-        // UK/Ireland
-        [[50,-6],[51,-5],[52,-4],[53,-3],[54,-3],[56,-5],[58,-5],[58,-3],[57,-2],
-         [55,-1],[54,0],[52,1],[51,1],[50,-1],[50,-6]],
-        // Japan
-        [[31,131],[33,130],[35,133],[36,136],[37,137],[38,140],[40,140],[42,141],
-         [43,145],[42,143],[40,140],[38,139],[36,137],[35,136],[34,135],[33,132],[31,131]],
-    ];
-
-    const CONTINENT_R = GLOBE_RADIUS * 1.001; // just above inner sphere
-    const FILL_R = GLOBE_RADIUS * 1.0005;    // fill sits between inner sphere and outline
-
-    // Landmass fills — slightly lighter than ocean to distinguish land
-    const landFillMat = new THREE.MeshBasicMaterial({
-        color: new THREE.Color(0x192838),
-        transparent: true,
-        opacity: 0.95,
-        side: THREE.DoubleSide,
-    });
-
-    for (const coords of continents) {
-        // Create filled landmass shape by triangulating from centroid
-        const center = [0, 0];
-        for (const [lat, lon] of coords) { center[0] += lat; center[1] += lon; }
-        center[0] /= coords.length;
-        center[1] /= coords.length;
-        const centerV = latLonToVec3(center[0], center[1], FILL_R);
-
-        for (let k = 0; k < coords.length - 1; k++) {
-            const a = latLonToVec3(coords[k][0], coords[k][1], FILL_R);
-            const b = latLonToVec3(coords[k + 1][0], coords[k + 1][1], FILL_R);
-            const triGeo = new THREE.BufferGeometry();
-            const verts = new Float32Array([
-                centerV.x, centerV.y, centerV.z,
-                a.x, a.y, a.z,
-                b.x, b.y, b.z
-            ]);
-            triGeo.setAttribute('position', new THREE.BufferAttribute(verts, 3));
-            triGeo.computeVertexNormals();
-            const tri = new THREE.Mesh(triGeo, landFillMat);
-            root.add(tri);
-        }
-    }
-
-    // Continent outline strokes
-    const continentMat = new THREE.LineBasicMaterial({
-        color: 0xffffff,
-        transparent: true,
-        opacity: 0.28,
-    });
-
-    for (const coords of continents) {
-        const points = coords.map(([lat, lon]) => latLonToVec3(lat, lon, CONTINENT_R));
-        const geo = new THREE.BufferGeometry().setFromPoints(points);
-        root.add(new THREE.Line(geo, continentMat));
-    }
-
     // ---- Orbital paths ----
     function createOrbit(radius, inclination, phase, color, opacity) {
         const points = [];
@@ -270,21 +161,33 @@
         { lat: 39.9, lon: 116.4 },   // Beijing
     ];
 
+    function latLonToVec3(lat, lon, r) {
+        const phi = (90 - lat) * (Math.PI / 180);
+        const theta = (lon + 180) * (Math.PI / 180);
+        return new THREE.Vector3(
+            -r * Math.sin(phi) * Math.cos(theta),
+            r * Math.cos(phi),
+            r * Math.sin(phi) * Math.sin(theta)
+        );
+    }
+
+    const NODE_TEAL = new THREE.Color(0x00d4aa);
     const NODE_STEEL = new THREE.Color(0x4A90D9);
-    const NODE_RED = new THREE.Color(0xcc4444);
+    const NODE_ORANGE = new THREE.Color(0xff6a35);
+    // Assign colors: ensure at least 3 of each, distributed across 12 nodes
     const nodeColors = [
-        NODE_STEEL,  // DC
-        NODE_RED,    // London
-        NODE_STEEL,  // Tokyo
-        NODE_RED,    // Tel Aviv
+        NODE_TEAL,   // DC
+        NODE_STEEL,  // London
+        NODE_ORANGE, // Tokyo
+        NODE_TEAL,   // Tel Aviv
         NODE_STEEL,  // Singapore
-        NODE_RED,    // Sydney
+        NODE_ORANGE, // Sydney
         NODE_STEEL,  // Dubai
-        NODE_RED,    // Berlin
-        NODE_STEEL,  // Seoul
-        NODE_RED,    // Mumbai
-        NODE_STEEL,  // Moscow
-        NODE_RED,    // Beijing
+        NODE_TEAL,   // Berlin
+        NODE_ORANGE, // Seoul
+        NODE_STEEL,  // Mumbai
+        NODE_TEAL,   // Moscow
+        NODE_ORANGE, // Beijing
     ];
 
     const nodeGroup = new THREE.Group();
