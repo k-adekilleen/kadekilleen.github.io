@@ -4,9 +4,9 @@
     if (!canvas || typeof THREE === 'undefined') return;
 
     // ---- Config ----
-    const BLUE = new THREE.Color(0x0F4392);
-    const RED = new THREE.Color(0xFF4949);
-    const GRID_COLOR = new THREE.Color(0x2a4a6a);
+    const BLUE = new THREE.Color(0x6BB0EE);
+    const RED = new THREE.Color(0xFF5252);
+    const GRID_COLOR = new THREE.Color(0x6a8aaa);
     const DIM_BLUE = new THREE.Color(0x0a1a35);
     const WHITE = new THREE.Color(0xffffff);
     const ROTATION_SPEED = 0.08;
@@ -24,8 +24,38 @@
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-    camera.position.set(0, 0, 7.2);
+    camera.position.set(0, 0, 8.4);
     camera.lookAt(0, 0, 0);
+
+    // ---- Star field (parallax background) ----
+    function makeStarLayer(count, radius, size, opacity) {
+        const geo = new THREE.BufferGeometry();
+        const pos = new Float32Array(count * 3);
+        for (let i = 0; i < count; i++) {
+            const u = Math.random();
+            const v = Math.random();
+            const theta = 2 * Math.PI * u;
+            const phi = Math.acos(2 * v - 1);
+            const r = radius + Math.random() * 4;
+            pos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+            pos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+            pos[i*3+2] = r * Math.cos(phi);
+        }
+        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        const mat = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size,
+            transparent: true,
+            opacity,
+            sizeAttenuation: true,
+            depthWrite: false,
+        });
+        return new THREE.Points(geo, mat);
+    }
+    const starsFar = makeStarLayer(300, 28, 0.04, 0.5);
+    const starsNear = makeStarLayer(120, 18, 0.06, 0.75);
+    scene.add(starsFar);
+    scene.add(starsNear);
 
     // ---- Drag-to-rotate state ----
     let isDragging = false;
@@ -47,13 +77,44 @@
     const root = new THREE.Group();
     scene.add(root);
 
+    // ---- Atmospheric rim glow (does not rotate with globe) ----
+    const atmoMat = new THREE.ShaderMaterial({
+        transparent: true,
+        side: THREE.BackSide,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        uniforms: {
+            glowColor: { value: new THREE.Color(0x4A90D9) },
+            glowStrength: { value: 1.0 }
+        },
+        vertexShader: `
+            varying float intensity;
+            void main() {
+                vec3 vNormal = normalize(normalMatrix * normal);
+                intensity = pow(0.62 + dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.2);
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `,
+        fragmentShader: `
+            uniform vec3 glowColor;
+            uniform float glowStrength;
+            varying float intensity;
+            void main() {
+                gl_FragColor = vec4(glowColor, 1.0) * intensity * glowStrength;
+            }
+        `
+    });
+    const atmoGeo = new THREE.SphereGeometry(GLOBE_RADIUS * 1.18, 48, 48);
+    const atmosphere = new THREE.Mesh(atmoGeo, atmoMat);
+    scene.add(atmosphere);
+
     // ---- Wireframe sphere (low-poly geodesic) ----
     const sphereGeo = new THREE.IcosahedronGeometry(GLOBE_RADIUS, 3);
     const wireframeMat = new THREE.MeshBasicMaterial({
         color: GRID_COLOR,
         wireframe: true,
         transparent: true,
-        opacity: 0.35
+        opacity: 0.55
     });
     const wireframe = new THREE.Mesh(sphereGeo, wireframeMat);
     root.add(wireframe);
@@ -61,7 +122,7 @@
     // Inner solid sphere — fully opaque to occlude back-side elements
     const innerGeo = new THREE.IcosahedronGeometry(GLOBE_RADIUS * 0.99, 4);
     const innerMat = new THREE.MeshBasicMaterial({
-        color: new THREE.Color(0x0c1a24),
+        color: new THREE.Color(0x1d3247),
     });
     const innerSphere = new THREE.Mesh(innerGeo, innerMat);
     innerSphere.renderOrder = 0;
@@ -133,7 +194,7 @@
 
     // Landmass fills — slightly lighter than ocean to distinguish land
     const landFillMat = new THREE.MeshBasicMaterial({
-        color: new THREE.Color(0x192838),
+        color: new THREE.Color(0x355370),
         transparent: true,
         opacity: 0.95,
         side: THREE.DoubleSide,
@@ -167,7 +228,7 @@
     const continentMat = new THREE.LineBasicMaterial({
         color: 0xffffff,
         transparent: true,
-        opacity: 0.28,
+        opacity: 0.55,
     });
 
     for (const coords of continents) {
@@ -196,9 +257,9 @@
     }
 
     const orbits = [
-        createOrbit(GLOBE_RADIUS * 1.20, 0.5, 0, BLUE, 0.40),
-        createOrbit(GLOBE_RADIUS * 1.35, 1.1, 1.2, BLUE, 0.35),
-        createOrbit(GLOBE_RADIUS * 1.28, 0.3, 2.5, RED, 0.35),
+        createOrbit(GLOBE_RADIUS * 1.20, 0.5, 0, BLUE, 0.65),
+        createOrbit(GLOBE_RADIUS * 1.35, 1.1, 1.2, BLUE, 0.60),
+        createOrbit(GLOBE_RADIUS * 1.28, 0.3, 2.5, RED, 0.60),
     ];
     orbits.forEach(o => root.add(o));
 
@@ -254,6 +315,34 @@
     createSatellite(1, -0.3, 1.5, BLUE, 'satellite');
     createSatellite(2, 0.25, 3.0, RED, 'plane');
 
+    // ---- Satellite fading trails ----
+    const TRAIL_LEN = 32;
+    for (const sat of satellites) {
+        const positions = new Float32Array(TRAIL_LEN * 3);
+        const colors = new Float32Array(TRAIL_LEN * 3);
+        for (let i = 0; i < TRAIL_LEN; i++) {
+            const fade = i / (TRAIL_LEN - 1); // 0 at tail, 1 at head
+            colors[i*3]   = sat.color.r * fade;
+            colors[i*3+1] = sat.color.g * fade;
+            colors[i*3+2] = sat.color.b * fade;
+        }
+        const geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        const mat = new THREE.LineBasicMaterial({
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.85,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+        });
+        const trail = new THREE.Line(geo, mat);
+        root.add(trail);
+        sat.trail = trail;
+        sat.trailPositions = positions;
+        sat.trailInitialized = false;
+    }
+
     // ---- Data nodes on globe surface ----
     const nodeData = [
         { lat: 38.9, lon: -77.0 },   // DC
@@ -271,7 +360,7 @@
     ];
 
     const NODE_STEEL = new THREE.Color(0x4A90D9);
-    const NODE_RED = new THREE.Color(0xcc4444);
+    const NODE_RED = new THREE.Color(0xd83838);
     const nodeColors = [
         NODE_STEEL,  // DC
         NODE_RED,    // London
@@ -323,28 +412,49 @@
         [0, 7], [7, 10], [2, 11], [8, 11]
     ];
 
-    function createArc(p1, p2, color, opacity) {
+    function buildArcPoints(p1, p2) {
         const points = [];
         const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
         const dist = p1.distanceTo(p2);
         mid.normalize().multiplyScalar(GLOBE_RADIUS + dist * 0.25);
-
         for (let i = 0; i <= 48; i++) {
             const t = i / 48;
             const a = new THREE.Vector3().lerpVectors(p1, mid, t);
             const b = new THREE.Vector3().lerpVectors(mid, p2, t);
             points.push(new THREE.Vector3().lerpVectors(a, b, t));
         }
-
-        const geo = new THREE.BufferGeometry().setFromPoints(points);
-        const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity });
-        return new THREE.Line(geo, mat);
+        return points;
     }
 
     const arcs = connections.map(([i, j]) => {
-        const arc = createArc(nodes[i].pos, nodes[j].pos, nodeColors[i], 0.35);
-        nodeGroup.add(arc);
-        return arc;
+        const points = buildArcPoints(nodes[i].pos, nodes[j].pos);
+        const color = nodeColors[i];
+        const geo = new THREE.BufferGeometry().setFromPoints(points);
+        const lineMat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.35 });
+        const line = new THREE.Line(geo, lineMat);
+        nodeGroup.add(line);
+
+        // Glowing data packet traveling along the arc
+        const packetGeo = new THREE.SphereGeometry(0.028, 10, 10);
+        const packetMat = new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: 0.95,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+        });
+        const packet = new THREE.Mesh(packetGeo, packetMat);
+        nodeGroup.add(packet);
+
+        return {
+            line,
+            material: lineMat,
+            packet,
+            packetMat,
+            points,
+            speed: 0.18 + Math.random() * 0.12,
+            phase: Math.random(),
+        };
     });
 
     // ---- Intercept trajectories (radial threat lines) ----
@@ -380,6 +490,25 @@
             interval: 8 + Math.random() * 12
         });
     }
+
+    // ---- Random node ping pool (occasional expanding rings) ----
+    const PING_COUNT = 5;
+    const pingPool = [];
+    for (let i = 0; i < PING_COUNT; i++) {
+        const ringGeo = new THREE.RingGeometry(0.05, 0.075, 32);
+        const ringMat = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0,
+            side: THREE.DoubleSide,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+        });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        nodeGroup.add(ring);
+        pingPool.push({ mesh: ring, mat: ringMat, active: false, t: 0 });
+    }
+    let nextPingTime = 1.0;
 
     // ---- Scan sweep line ----
     const sweepGeo = new THREE.PlaneGeometry(GLOBE_RADIUS * 1.8, 0.01);
@@ -545,6 +674,27 @@
             sat.mesh.traverse(child => {
                 if (child.material) child.material.opacity = glow;
             });
+
+            // Fading trail: shift positions, push new head
+            const tp = sat.trailPositions;
+            if (!sat.trailInitialized) {
+                for (let k = 0; k < TRAIL_LEN; k++) {
+                    tp[k*3]   = _curPos.x;
+                    tp[k*3+1] = _curPos.y;
+                    tp[k*3+2] = _curPos.z;
+                }
+                sat.trailInitialized = true;
+            } else {
+                for (let k = 0; k < TRAIL_LEN - 1; k++) {
+                    tp[k*3]   = tp[(k+1)*3];
+                    tp[k*3+1] = tp[(k+1)*3+1];
+                    tp[k*3+2] = tp[(k+1)*3+2];
+                }
+                tp[(TRAIL_LEN-1)*3]   = _curPos.x;
+                tp[(TRAIL_LEN-1)*3+1] = _curPos.y;
+                tp[(TRAIL_LEN-1)*3+2] = _curPos.z;
+            }
+            sat.trail.geometry.attributes.position.needsUpdate = true;
         }
 
         // Threat/intercept lines flash
@@ -558,10 +708,49 @@
             }
         }
 
-        // Arc pulse
+        // Arc pulse + traveling data packets
         for (let i = 0; i < arcs.length; i++) {
+            const arc = arcs[i];
             const pulse = Math.sin(elapsed * 1.5 + i * 0.8) * 0.5 + 0.5;
-            arcs[i].material.opacity = 0.2 + pulse * 0.25;
+            arc.material.opacity = 0.25 + pulse * 0.3;
+
+            const t = (elapsed * arc.speed + arc.phase) % 1;
+            const fIdx = t * (arc.points.length - 1);
+            const idx = Math.floor(fIdx);
+            const frac = fIdx - idx;
+            const p1 = arc.points[idx];
+            const p2 = arc.points[Math.min(idx + 1, arc.points.length - 1)];
+            arc.packet.position.lerpVectors(p1, p2, frac);
+            // Bright in the middle of the run, fade near endpoints
+            const edge = Math.sin(t * Math.PI);
+            arc.packetMat.opacity = 0.4 + edge * 0.6;
+            arc.packet.scale.setScalar(0.8 + edge * 0.6);
+        }
+
+        // Random node pings: occasionally trigger an expanding ring at a node
+        if (elapsed > nextPingTime) {
+            const free = pingPool.find(p => !p.active);
+            if (free) {
+                const n = nodes[Math.floor(Math.random() * nodes.length)];
+                free.active = true;
+                free.t = 0;
+                free.mesh.position.copy(n.pos);
+                free.mesh.lookAt(0, 0, 0);
+                free.mat.color.copy(n.color);
+            }
+            nextPingTime = elapsed + 0.7 + Math.random() * 1.4;
+        }
+        for (const p of pingPool) {
+            if (!p.active) continue;
+            p.t += dt * 0.7;
+            if (p.t >= 1) {
+                p.active = false;
+                p.mat.opacity = 0;
+                continue;
+            }
+            const eased = 1 - Math.pow(1 - p.t, 2); // ease-out
+            p.mesh.scale.setScalar(1 + eased * 7);
+            p.mat.opacity = (1 - p.t) * 0.55;
         }
 
         // Scan hover boost on wireframe

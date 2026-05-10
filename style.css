@@ -68,15 +68,45 @@ nav {
 }
 
 .nav-logo {
-    font-size: 2.15rem;
-    font-weight: 200;
+    display: inline-flex;
+    align-items: center;
     color: #5BA0E0;
     line-height: 1;
-    letter-spacing: 2px;
+    transition: color 0.15s;
+}
+
+.nav-logo svg {
+    width: 38px;
+    height: 38px;
+    display: block;
+    overflow: visible;
+}
+
+.nav-logo .logo-trail {
+    transition: opacity 0.3s;
+}
+
+.nav-logo .logo-jet {
+    offset-path: path("M 43.19 15.46 A 21 8.5 -24 1 1 4.81 32.54 A 21 8.5 -24 1 1 43.19 15.46");
+    offset-distance: 0%;
+    offset-rotate: auto;
 }
 
 .nav-logo:hover {
     color: var(--white);
+}
+
+.nav-logo:hover .logo-trail {
+    opacity: 0.85;
+}
+
+.nav-logo:hover .logo-jet {
+    animation: logo-jet-fly 1.7s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes logo-jet-fly {
+    from { offset-distance: 0%; }
+    to   { offset-distance: 100%; }
 }
 
 .nav-links {
@@ -133,19 +163,27 @@ main {
 main:has(.hero) {
     padding: 0;
     max-width: none;
+    display: flex;
+}
+
+body:has(.hero) {
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* ===== Hero (Home) ===== */
 .hero {
-    height: calc(100vh - 60px);
+    flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 0 1.5rem;
+    padding: 1rem 1.5rem;
     overflow: hidden;
-    background-color: #ffffff;
+    background-color: var(--charcoal);
+    width: 100%;
 }
 
 .hero-upper {
@@ -158,12 +196,12 @@ main:has(.hero) {
     font-weight: 700;
     margin-bottom: 1rem;
     letter-spacing: -0.025em;
-    color: #111111;
+    color: var(--white);
 }
 
 .hero-tagline {
     font-size: 0.95rem;
-    color: #555555;
+    color: var(--gray-light);
     font-weight: 400;
     line-height: 1.6;
     white-space: nowrap;
@@ -173,12 +211,12 @@ main:has(.hero) {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     pointer-events: auto;
-    width: 560px;
-    max-width: 95vw;
+    width: min(560px, 60vh, 95vw);
     aspect-ratio: 1;
     cursor: grab;
+    flex-shrink: 0;
 }
 
 .hero-globe canvas {
