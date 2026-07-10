@@ -7,19 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.html" class="nav-logo" aria-label="Home">
-                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="miter" aria-hidden="true">
-                    <path class="logo-orbit-back" d="M 43.97 17.51 A 21 5 -18 0 0 4.03 30.49" stroke-width="1.4" opacity="0.55"/>
-                    <circle class="logo-planet" cx="24" cy="24" r="10" stroke-width="1.5"/>
-                    <path class="logo-k" d="M 20 16 L 20 32 M 28 16 L 20 24 L 28 32" stroke-width="1.8"/>
-                    <path class="logo-orbit-front" d="M 43.97 17.51 A 21 5 -18 0 1 4.03 30.49" stroke-width="1.4" opacity="0.85"/>
-                </svg>
-            </a>
+            <a href="index.html" class="nav-logo">Kade Killeen</a>
             <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -30,7 +24,6 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="projects.html" class="active">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
             </ul>
         </nav>
     </header>
@@ -38,25 +31,31 @@
     <main>
         <section class="page-section">
             <h1>Projects</h1>
+            <p class="section-lede">Independent research — each built as a fully re-runnable pipeline with a written analysis. Follow the link on any card for the full writeup, figures, and sources.</p>
 
             <div class="project-grid">
-                <!-- To add a new project, copy one of these article blocks and update the content -->
                 <article class="project-card">
-                    <h2>Project One</h2>
-                    <p>Short description of the first project. What it does, why you built it, and what you learned. Keep it to two or three sentences.</p>
-                    <a href="https://github.com/yourusername/project-one" target="_blank" rel="noopener noreferrer" class="project-link">View Project &rarr;</a>
+                    <a class="project-figure" href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/f1-driver-model/output/writeup.md" target="_blank" rel="noopener noreferrer">
+                        <img src="project-assets/f1-driver-model/quali_vs_race.png" alt="Scatter plot of one-lap qualifying speed versus race pace for every 2022–2025 F1 driver, with Verstappen isolated in the fast corner." />
+                    </a>
+                    <div class="project-body">
+                        <h2>Isolating Driver Skill in Formula 1</h2>
+                        <p class="project-tags">Bayesian hierarchical model &middot; PyMC &middot; 2022&ndash;2025</p>
+                        <p>A two-channel Bayesian hierarchical model that separates a driver's true pace from the car beneath them, across the 2022&ndash;2025 ground-effect era. Built on 64,745 clean racing laps and 1,429 qualifying laps &mdash; 31 drivers, 92 Grand Prix weekends &mdash; and validated against teammate head-to-head pace (r&nbsp;=&nbsp;0.92). The headline: Verstappen at &minus;1.24% of lap time versus the average driver, a class of one.</p>
+                        <a href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/f1-driver-model/output/writeup.md" target="_blank" rel="noopener noreferrer" class="project-link">Read the full writeup &rarr;</a>
+                    </div>
                 </article>
 
                 <article class="project-card">
-                    <h2>Project Two</h2>
-                    <p>Short description of the second project. Explain the problem it solves or the question it explores. Mention any notable tools or methods used.</p>
-                    <a href="https://github.com/yourusername/project-two" target="_blank" rel="noopener noreferrer" class="project-link">View Project &rarr;</a>
-                </article>
-
-                <article class="project-card">
-                    <h2>Project Three</h2>
-                    <p>Short description of the third project. Highlight what makes it interesting or what you'd want a reader to take away from it.</p>
-                    <a href="https://github.com/yourusername/project-three" target="_blank" rel="noopener noreferrer" class="project-link">View Project &rarr;</a>
+                    <a class="project-figure" href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md" target="_blank" rel="noopener noreferrer">
+                        <img src="project-assets/microeconomics-of-war/f1_cost_exchange_ratios.png" alt="Log-scale chart of cost-exchange ratios showing cheap autonomous systems trading favorably against far more expensive targets." />
+                    </a>
+                    <div class="project-body">
+                        <h2>The Microeconomics of Modern War</h2>
+                        <p class="project-tags">Cost-exchange analysis &middot; Autonomous systems &middot; Sourced dataset</p>
+                        <p>A data-backed argument that cheap autonomous systems are inverting the cost-exchange ratio of modern war &mdash; a few-hundred-dollar FPV drone trading against a multi-million-dollar tank. Draws on the economics of Ukraine's drone campaign, the Red Sea, and Nagorno-Karabakh, with every quantitative claim carrying an inline source, and closes on what the inversion means for force design and procurement.</p>
+                        <a href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md" target="_blank" rel="noopener noreferrer" class="project-link">Read the full draft &rarr;</a>
+                    </div>
                 </article>
             </div>
         </section>
@@ -66,9 +65,9 @@
         <div class="footer-content">
             <p>&copy; 2026 Kade Killeen</p>
             <ul class="footer-links">
-                <li><a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><a href="https://substack.com/@yourusername" target="_blank" rel="noopener noreferrer">Substack</a></li>
-                <li><a href="mailto:your@email.com">Email</a></li>
+                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack</a></li>
+                <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
             </ul>
         </div>
     </footer>
