@@ -7,19 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.html" class="nav-logo" aria-label="Home">
-                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="miter" aria-hidden="true">
-                    <path class="logo-orbit-back" d="M 43.97 17.51 A 21 5 -18 0 0 4.03 30.49" stroke-width="1.4" opacity="0.55"/>
-                    <circle class="logo-planet" cx="24" cy="24" r="10" stroke-width="1.5"/>
-                    <path class="logo-k" d="M 20 16 L 20 32 M 28 16 L 20 24 L 28 32" stroke-width="1.8"/>
-                    <path class="logo-orbit-front" d="M 43.97 17.51 A 21 5 -18 0 1 4.03 30.49" stroke-width="1.4" opacity="0.85"/>
-                </svg>
-            </a>
+            <a href="index.html" class="nav-logo">Kade Killeen</a>
             <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -30,29 +24,64 @@
                 <li><a href="about.html" class="active">About</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section class="about-page">
-            <h2>About Me</h2>
+            <h1>About Me</h1>
+
             <div class="about-intro">
-                <img src="headshot.jpg" alt="Kade Killeen" class="about-headshot" />
+                <div class="about-photo">
+                    <img src="headshot.jpg" alt="Kade Killeen" class="about-headshot" />
+                    <img src="headshot-color.jpg" alt="" aria-hidden="true" class="about-headshot about-headshot-color" />
+                </div>
                 <div class="about-bio">
                     <p>I grew up in Austin, Texas, and have spent the last several years working to understand how emerging technologies reshape national security and global competition. I studied business management with a concentration in engineering and analytics at MIT, and I'm currently finishing an MPhil in Technology Policy at the University of Cambridge.</p>
-                    <p>I've worked across consulting, tech, and defense, from advising Fortune 500 clients at BCG to uncovering cloud security vulnerabilities at Microsoft to leading AI/ML research for the U.S. Air Force and Space Force at MIT. I plan to start full-time in consulting later this year.</p>
+                    <p>I'm drawn to where technology, security, and strategy overlap — how new platforms shift the balance of power, how governments adapt to technological change, and where commercial innovation meets military capability. I follow markets closely, particularly where technology and geopolitics collide, and I'll be starting full-time in consulting later this year.</p>
                 </div>
             </div>
 
-            <hr class="section-divider" />
-
-            <div class="about-section">
-                <h2>Interests</h2>
-                <p>I'm drawn to the space where technology, security, and strategy overlap, how new platforms and systems change the balance of power, how governments adapt to technological change, and where commercial innovation and military capability intersect. I also follow markets and investing closely, particularly where technology and geopolitics collide.</p>
-                <p>Outside of work, I'm fascinated by biohacking and human performance optimization. I played four years of varsity basketball at MIT and captained the team my senior year. These days I'm more likely watching F1, training MMA, or lifting. I like building things, whether it's model airplanes, side projects, or whatever I'm tinkering with at the time.</p>
+            <p class="about-heading">Experience</p>
+            <div class="experience-row">
+                <div class="exp-card">
+                    <div class="exp-company">BCG</div>
+                    <div class="exp-role">Consulting</div>
+                    <p class="exp-impact">Advised Fortune 500 clients on strategy and technology decisions.</p>
+                </div>
+                <div class="exp-card">
+                    <div class="exp-company">Microsoft</div>
+                    <div class="exp-role">Cloud Security Research</div>
+                    <p class="exp-impact">Uncovered vulnerabilities across Microsoft's cloud infrastructure.</p>
+                </div>
+                <div class="exp-card">
+                    <div class="exp-company">MIT</div>
+                    <div class="exp-role">AI / ML Research</div>
+                    <p class="exp-impact">Led AI/ML research for the U.S. Air Force and Space Force.</p>
+                </div>
             </div>
+
+            <div class="stat-callout">
+                <div class="stat-figure">
+                    <span class="stat-number">4</span>
+                    <span class="stat-caption">years varsity<br>basketball at MIT</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-note">
+                    <strong>Team Captain</strong>
+                    <span>senior year</span>
+                </div>
+            </div>
+
+            <p class="about-heading">Beyond Work</p>
+            <ul class="interest-chips">
+                <li><span class="chip-icon" aria-hidden="true">🏎️</span> Formula 1</li>
+                <li><span class="chip-icon" aria-hidden="true">🥊</span> MMA</li>
+                <li><span class="chip-icon" aria-hidden="true">🏋️</span> Lifting</li>
+                <li><span class="chip-icon" aria-hidden="true">🔧</span> Building &amp; Tinkering</li>
+                <li><span class="chip-icon" aria-hidden="true">⚡</span> Biohacking &amp; Human Performance</li>
+            </ul>
         </section>
     </main>
 
@@ -60,9 +89,9 @@
         <div class="footer-content">
             <p>&copy; 2026 Kade Killeen</p>
             <ul class="footer-links">
-                <li><a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><a href="https://substack.com/@yourusername" target="_blank" rel="noopener noreferrer">Substack</a></li>
-                <li><a href="mailto:your@email.com">Email</a></li>
+                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack</a></li>
+                <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
             </ul>
         </div>
     </footer>
