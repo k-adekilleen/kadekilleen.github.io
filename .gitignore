@@ -11,3 +11,11 @@ Thumbs.db
 # Local source assets kept out of the deployed site
 headshot.png
 headshot2.png
+
+# Never commit resume / personal documents to the public repo
+*.pdf
+*.docx
+*.doc
+*.textClipping
+*[Rr]esume*
+*[Cc][Vv].pdf
