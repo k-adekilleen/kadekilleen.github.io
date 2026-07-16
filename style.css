@@ -410,18 +410,24 @@ body:has(.hero) {
 }
 
 .role-note {
-    font-size: 0.88rem;
-    color: var(--gray-light);
-    line-height: 1.55;
-    margin-top: 0.15rem;
-    max-width: 60ch;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gray);
+    font-weight: 500;
+    margin-top: 0.2rem;
 }
 
-/* Athletics prose */
-.athletics-note {
-    font-size: 0.95rem;
-    max-width: 62ch;
+/* Athletics then/now */
+.athletics-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    max-width: 640px;
     margin-bottom: 3.25rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 /* Interest chips */
@@ -559,18 +565,22 @@ body:has(.hero) {
     color: var(--gray);
 }
 
-/* Currently / Favorites modules */
+/* Currently module — horizontal row */
 .currently-list {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1.15rem;
-    max-width: 620px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.25rem 1.75rem;
     margin-bottom: 3.25rem;
 }
 
 .currently-list:last-child {
     margin-bottom: 0;
+}
+
+.currently-list li {
+    font-size: 0.92rem;
+    line-height: 1.55;
 }
 
 .currently-list li {
