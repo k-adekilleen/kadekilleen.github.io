@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="style.css?v=23">
+    <link rel="stylesheet" href="style.css?v=24">
 </head>
 <body>
     <header>
@@ -44,21 +44,15 @@
             <h1>Contact</h1>
             <p class="section-lede">The fastest way to reach me is email &mdash; always happy to talk defense tech, F1, or whatever you're building.</p>
 
-            <a class="contact-email" href="mailto:kadekilleen23@gmail.com">kadekilleen23@gmail.com</a>
+            <div class="contact-email-row">
+                <a class="contact-email" href="mailto:kadekilleen23@gmail.com">kadekilleen23@gmail.com</a>
+                <button class="copy-btn" type="button" data-copy="kadekilleen23@gmail.com" aria-label="Copy email address">Copy</button>
+            </div>
 
-            <ul class="contact-links">
-                <li>
-                    <span class="contact-label">LinkedIn</span>
-                    <a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">linkedin.com/in/kadekilleen</a>
-                </li>
-                <li>
-                    <span class="contact-label">GitHub</span>
-                    <a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">github.com/k-adekilleen</a>
-                </li>
-                <li>
-                    <span class="contact-label">Substack</span>
-                    <a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">substack.com/@kadekilleen</a>
-                </li>
+            <ul class="contact-links-row">
+                <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn <span class="ext" aria-hidden="true">&#8599;</span></a></li>
+                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub <span class="ext" aria-hidden="true">&#8599;</span></a></li>
+                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack <span class="ext" aria-hidden="true">&#8599;</span></a></li>
             </ul>
         </section>
     </main>
@@ -75,6 +69,6 @@
         </div>
     </footer>
 
-    <script src="main.js"></script>
+    <script src="main.js?v=9"></script>
 </body>
 </html>

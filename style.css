@@ -479,6 +479,7 @@ body:has(.hero) {
 }
 
 .project-title {
+    position: relative;
     display: inline-flex;
     align-items: baseline;
     gap: 0.45rem;
@@ -487,6 +488,23 @@ body:has(.hero) {
     color: var(--white);
     letter-spacing: -0.01em;
     transition: color 0.15s;
+}
+
+.project-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+}
+
+.project-title:hover::after {
+    transform: scaleX(1);
 }
 
 .project-title .ext {
@@ -521,48 +539,84 @@ body:has(.hero) {
 }
 
 /* ===== Contact ===== */
+.contact-email-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2.75rem;
+}
+
 .contact-email {
-    display: inline-block;
-    font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+    font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--white);
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 2px;
-    margin-bottom: 2.5rem;
-    transition: color 0.15s, border-color 0.15s;
+    padding-bottom: 3px;
+    background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0% 2px no-repeat;
+    transition: background-size 0.3s ease, color 0.15s;
 }
 
 .contact-email:hover {
-    color: var(--accent);
+    color: var(--white);
+    background-size: 100% 2px;
 }
 
-.contact-links {
-    list-style: none;
-    max-width: 480px;
-    margin-bottom: 3.25rem;
-}
-
-.contact-links li {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid var(--hairline);
-}
-
-.contact-links li:last-child {
-    border-bottom: none;
-}
-
-.contact-label {
-    width: 90px;
-    flex-shrink: 0;
-    font-size: 0.78rem;
+.copy-btn {
+    font-family: var(--font);
+    font-size: 0.68rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--gray);
+    background: none;
+    border: 1px solid #383838;
+    border-radius: 4px;
+    padding: 0.3rem 0.65rem;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.copy-btn:hover {
+    color: var(--white);
+    border-color: var(--gray);
+}
+
+.copy-btn.copied {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.contact-links-row {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+}
+
+.contact-links-row a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--gray-light);
+    transition: color 0.15s;
+}
+
+.contact-links-row .ext {
+    font-size: 0.8em;
+    color: var(--gray);
+    transition: transform 0.15s, color 0.15s;
+}
+
+.contact-links-row a:hover {
+    color: var(--white);
+}
+
+.contact-links-row a:hover .ext {
+    color: var(--accent);
+    transform: translate(2px, -2px);
 }
 
 /* Currently module — horizontal row */
@@ -596,6 +650,51 @@ body:has(.hero) {
     letter-spacing: 0.06em;
     color: var(--accent);
     margin-bottom: 0.1rem;
+}
+
+/* Page-section eyebrows get a small accent tick (Projects / Contact) */
+.page-section .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.page-section .eyebrow::before {
+    content: '';
+    width: 16px;
+    height: 2px;
+    background-color: var(--accent);
+}
+
+/* Entrance animation (Projects / Contact) */
+@media (prefers-reduced-motion: no-preference) {
+    .page-section > h1,
+    .page-section .section-lede,
+    .page-section .eyebrow,
+    .project-item,
+    .contact-email-row,
+    .contact-links-row {
+        opacity: 0;
+        animation: rise 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
+    }
+
+    .page-section .section-lede,
+    .contact-email-row { animation-delay: 0.06s; }
+    .page-section .eyebrow,
+    .contact-links-row { animation-delay: 0.12s; }
+    .project-item:nth-child(1) { animation-delay: 0.18s; }
+    .project-item:nth-child(2) { animation-delay: 0.26s; }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* ===== Footer ===== */
