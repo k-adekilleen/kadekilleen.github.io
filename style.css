@@ -449,6 +449,10 @@ body:has(.hero) {
     line-height: 1;
 }
 
+.about-currently-heading {
+    margin-top: 3.25rem;
+}
+
 /* ===== Projects ===== */
 .project-list {
     list-style: none;
