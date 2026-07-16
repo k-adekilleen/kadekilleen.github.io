@@ -119,7 +119,7 @@
     const wireframe = new THREE.Mesh(sphereGeo, wireframeMat);
     root.add(wireframe);
 
-    // Inner solid sphere — fully opaque to occlude back-side elements
+    // Inner solid sphere, fully opaque to occlude back-side elements
     const innerGeo = new THREE.IcosahedronGeometry(GLOBE_RADIUS * 0.99, 4);
     const innerMat = new THREE.MeshBasicMaterial({
         color: new THREE.Color(0x1d3247),
@@ -192,7 +192,7 @@
     const CONTINENT_R = GLOBE_RADIUS * 1.001; // just above inner sphere
     const FILL_R = GLOBE_RADIUS * 1.0005;    // fill sits between inner sphere and outline
 
-    // Landmass fills — slightly lighter than ocean to distinguish land
+    // Landmass fills, slightly lighter than the ocean
     const landFillMat = new THREE.MeshBasicMaterial({
         color: new THREE.Color(0x355370),
         transparent: true,
@@ -361,7 +361,7 @@
 
     const NODE_STEEL = new THREE.Color(0x4A90D9);
     const NODE_RED = new THREE.Color(0xd83838);
-    // Network nodes are all steel blue — red is reserved for cost-exchange events
+    // Network nodes are all steel blue; red is reserved for cost-exchange events
     const nodeColors = nodeData.map(() => NODE_STEEL);
 
     const nodeGroup = new THREE.Group();
@@ -446,14 +446,14 @@
     });
 
     // ---- Cost-exchange events ----
-    // Real, sourced cases from "The Microeconomics of Modern War" — the red
+    // Real, sourced cases from "The Microeconomics of Modern War". The red
     // markers are documented cost-exchange inversions, not decoration.
     const WRITEUP_URL = 'https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md';
     const eventData = [
-        { lat: 44.6, lon: 33.5, name: 'Black Sea — naval drone swarm', ratio: '$250K sea drone vs $65M warship' },
-        { lat: 48.6, lon: 38.5, name: 'Donbas — the FPV economy', ratio: '$500 FPV vs $1.5–4.5M tank' },
-        { lat: 13.5, lon: 43.2, name: 'Red Sea — the defender’s bill', ratio: '$2K drone vs $2M interceptor' },
-        { lat: 39.9, lon: 46.7, name: 'Nagorno-Karabakh — proof of concept', ratio: '245 tanks lost vs 36 (2020)' },
+        { lat: 44.6, lon: 33.5, name: 'Black Sea: naval drone swarm', ratio: '$250K sea drone vs $65M warship' },
+        { lat: 48.6, lon: 38.5, name: 'Donbas: the FPV economy', ratio: '$500 FPV vs $1.5–4.5M tank' },
+        { lat: 13.5, lon: 43.2, name: 'Red Sea: the defender’s bill', ratio: '$2K drone vs $2M interceptor' },
+        { lat: 39.9, lon: 46.7, name: 'Nagorno-Karabakh: proof of concept', ratio: '245 tanks lost vs 36 (2020)' },
     ];
 
     const eventGroup = new THREE.Group();
@@ -627,8 +627,8 @@
     function onUp() {
         isDragging = false;
         canvas.style.cursor = 'grab';
-        // A press that barely moved is a click/tap — open the research if it
-        // landed on an event marker
+        // A press that barely moved is a click or tap, so open the research
+        // if it landed on an event marker
         if (downPointer) {
             const moved = Math.hypot(prevPointer.x - downPointer.x, prevPointer.y - downPointer.y);
             downPointer = null;
