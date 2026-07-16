@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects - Kade Killeen</title>
-    <meta name="description" content="Independent research by Kade Killeen — defense economics, autonomous systems, and Formula 1 — each built as a fully re-runnable data pipeline with a written analysis.">
+    <meta name="description" content="Things Kade Killeen has built — research on defense economics and Formula 1, plus the reproducible pipeline and site behind them.">
     <meta name="author" content="Kade Killeen">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Projects — Kade Killeen">
-    <meta property="og:description" content="Independent research — defense economics, autonomous systems, and Formula 1 — each a fully re-runnable data pipeline with a written analysis.">
+    <meta property="og:description" content="Things I've built — research on defense economics and Formula 1, plus the reproducible pipeline and site behind them.">
     <meta property="og:url" content="https://kadekilleen.github.io/projects.html">
     <meta property="og:image" content="https://kadekilleen.github.io/project-assets/microeconomics-of-war/f1_cost_exchange_ratios.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Projects — Kade Killeen">
-    <meta name="twitter:description" content="Independent research — defense economics, autonomous systems, and Formula 1 — each a fully re-runnable data pipeline with a written analysis.">
+    <meta name="twitter:description" content="Things I've built — research on defense economics and Formula 1, plus the reproducible pipeline and site behind them.">
     <meta name="twitter:image" content="https://kadekilleen.github.io/project-assets/microeconomics-of-war/f1_cost_exchange_ratios.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="style.css?v=17">
+    <link rel="stylesheet" href="style.css?v=18">
 </head>
 <body>
     <header>
@@ -42,33 +42,35 @@
     <main>
         <section class="page-section">
             <h1>Projects</h1>
-            <p class="section-lede">Independent research — each built as a fully re-runnable pipeline with a written analysis. Follow the link on any card for the full writeup, figures, and sources.</p>
+            <p class="section-lede">Things I've built. Every entry links to the full writeup or source &mdash; the research is fully re-runnable, raw data to final figures.</p>
 
-            <div class="project-grid">
-                <article class="project-card">
-                    <a class="project-figure" href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/f1-driver-model/output/writeup.md" target="_blank" rel="noopener noreferrer">
-                        <img src="project-assets/f1-driver-model/quali_vs_race.png" alt="Scatter plot of one-lap qualifying speed versus race pace for every 2022–2025 F1 driver, with Verstappen isolated in the fast corner." />
-                    </a>
-                    <div class="project-body">
-                        <h2>Isolating Driver Skill in Formula 1</h2>
-                        <p class="project-tags">Bayesian hierarchical model &middot; PyMC &middot; 2022&ndash;2025</p>
-                        <p>A two-channel Bayesian hierarchical model that separates a driver's true pace from the car beneath them, across the 2022&ndash;2025 ground-effect era. Built on 64,745 clean racing laps and 1,429 qualifying laps &mdash; 31 drivers, 92 Grand Prix weekends &mdash; and validated against teammate head-to-head pace (r&nbsp;=&nbsp;0.92). The headline: Verstappen at &minus;1.24% of lap time versus the average driver, a class of one.</p>
-                        <a href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/f1-driver-model/output/writeup.md" target="_blank" rel="noopener noreferrer" class="project-link">Read the full writeup &rarr;</a>
-                    </div>
-                </article>
+            <p class="eyebrow">Research</p>
+            <ul class="project-list">
+                <li class="project-item">
+                    <a class="project-title" href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/f1-driver-model/output/writeup.md" target="_blank" rel="noopener noreferrer">Isolating Driver Skill in Formula 1 <span class="ext" aria-hidden="true">&#8599;</span></a>
+                    <p class="project-desc">A Bayesian hierarchical model that separates a driver's true pace from the car beneath them, across the 2022&ndash;2025 ground-effect era. 64,745 racing laps, validated against teammate head-to-heads (r&nbsp;=&nbsp;0.92). The headline: Verstappen is a class of one.</p>
+                    <p class="project-meta">Bayesian modeling &middot; PyMC &middot; 2022&ndash;2025 data</p>
+                </li>
+                <li class="project-item">
+                    <a class="project-title" href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md" target="_blank" rel="noopener noreferrer">The Microeconomics of Modern War <span class="ext" aria-hidden="true">&#8599;</span></a>
+                    <p class="project-desc">A data-backed argument that cheap autonomous systems are inverting the cost-exchange ratios of modern war &mdash; a few-hundred-dollar FPV drone trading against a multi-million-dollar tank &mdash; and what that means for force design and procurement.</p>
+                    <p class="project-meta">Defense economics &middot; Cost-exchange analysis &middot; Sourced dataset</p>
+                </li>
+            </ul>
 
-                <article class="project-card">
-                    <a class="project-figure" href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md" target="_blank" rel="noopener noreferrer">
-                        <img src="project-assets/microeconomics-of-war/f1_cost_exchange_ratios.png" alt="Log-scale chart of cost-exchange ratios showing cheap autonomous systems trading favorably against far more expensive targets." />
-                    </a>
-                    <div class="project-body">
-                        <h2>The Microeconomics of Modern War</h2>
-                        <p class="project-tags">Cost-exchange analysis &middot; Autonomous systems &middot; Sourced dataset</p>
-                        <p>A data-backed argument that cheap autonomous systems are inverting the cost-exchange ratio of modern war &mdash; a few-hundred-dollar FPV drone trading against a multi-million-dollar tank. Draws on the economics of Ukraine's drone campaign, the Red Sea, and Nagorno-Karabakh, with every quantitative claim carrying an inline source, and closes on what the inversion means for force design and procurement.</p>
-                        <a href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md" target="_blank" rel="noopener noreferrer" class="project-link">Read the full draft &rarr;</a>
-                    </div>
-                </article>
-            </div>
+            <p class="eyebrow">Infrastructure</p>
+            <ul class="project-list">
+                <li class="project-item">
+                    <a class="project-title" href="https://github.com/k-adekilleen/research-pipeline" target="_blank" rel="noopener noreferrer">Research Pipeline <span class="ext" aria-hidden="true">&#8599;</span></a>
+                    <p class="project-desc">The harness behind the research above &mdash; every project scoped, executed, and delivered as re-runnable scripts with committed data, figures, and writeups.</p>
+                    <p class="project-meta">Python &middot; Reproducible research</p>
+                </li>
+                <li class="project-item">
+                    <a class="project-title" href="https://github.com/k-adekilleen/kadekilleen.github.io" target="_blank" rel="noopener noreferrer">This Site <span class="ext" aria-hidden="true">&#8599;</span></a>
+                    <p class="project-desc">Hand-built static site &mdash; vanilla HTML, CSS, and JavaScript with a Three.js orbital globe on the homepage. No framework, no build step.</p>
+                    <p class="project-meta">HTML/CSS/JS &middot; Three.js</p>
+                </li>
+            </ul>
         </section>
     </main>
 
