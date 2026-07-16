@@ -182,6 +182,7 @@ body:has(.hero) {
 }
 
 .hero-globe {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -196,6 +197,62 @@ body:has(.hero) {
 .hero-globe canvas {
     width: 100%;
     height: 100%;
+}
+
+/* Cost-exchange event tooltip */
+.globe-tooltip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, calc(-100% - 14px));
+    background-color: var(--charcoal-light);
+    border: 1px solid #383838;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 5;
+}
+
+.globe-tooltip.visible {
+    opacity: 1;
+}
+
+.globe-tooltip .tt-name {
+    display: block;
+    color: var(--white);
+    font-weight: 600;
+}
+
+.globe-tooltip .tt-ratio {
+    display: block;
+    color: var(--gray-light);
+}
+
+.globe-tooltip .tt-hint {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.72rem;
+    color: var(--accent);
+}
+
+.hero-caption {
+    font-size: 0.75rem;
+    color: var(--gray);
+    letter-spacing: 0.01em;
+    text-align: center;
+    max-width: 90vw;
+}
+
+.hero-caption .dot {
+    color: #d83838;
+    font-size: 0.6rem;
+    vertical-align: 1px;
+    margin-right: 0.35rem;
 }
 
 

@@ -361,20 +361,8 @@
 
     const NODE_STEEL = new THREE.Color(0x4A90D9);
     const NODE_RED = new THREE.Color(0xd83838);
-    const nodeColors = [
-        NODE_STEEL,  // DC
-        NODE_RED,    // London
-        NODE_STEEL,  // Tokyo
-        NODE_RED,    // Tel Aviv
-        NODE_STEEL,  // Singapore
-        NODE_RED,    // Sydney
-        NODE_STEEL,  // Dubai
-        NODE_RED,    // Berlin
-        NODE_STEEL,  // Seoul
-        NODE_RED,    // Mumbai
-        NODE_STEEL,  // Moscow
-        NODE_RED,    // Beijing
-    ];
+    // Network nodes are all steel blue — red is reserved for cost-exchange events
+    const nodeColors = nodeData.map(() => NODE_STEEL);
 
     const nodeGroup = new THREE.Group();
     root.add(nodeGroup);
@@ -457,39 +445,96 @@
         };
     });
 
-    // ---- Intercept trajectories (radial threat lines) ----
-    const threatLines = [];
-    for (let i = 0; i < 5; i++) {
-        const origin = latLonToVec3(
-            (Math.random() - 0.5) * 120,
-            Math.random() * 360 - 180,
-            GLOBE_RADIUS * 1.6
+    // ---- Cost-exchange events ----
+    // Real, sourced cases from "The Microeconomics of Modern War" — the red
+    // markers are documented cost-exchange inversions, not decoration.
+    const WRITEUP_URL = 'https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md';
+    const eventData = [
+        { lat: 44.6, lon: 33.5, name: 'Black Sea — naval drone swarm', ratio: '$250K sea drone vs $65M warship' },
+        { lat: 48.6, lon: 38.5, name: 'Donbas — the FPV economy', ratio: '$500 FPV vs $1.5–4.5M tank' },
+        { lat: 13.5, lon: 43.2, name: 'Red Sea — the defender’s bill', ratio: '$2K drone vs $2M interceptor' },
+        { lat: 39.9, lon: 46.7, name: 'Nagorno-Karabakh — proof of concept', ratio: '245 tanks lost vs 36 (2020)' },
+    ];
+
+    const eventGroup = new THREE.Group();
+    root.add(eventGroup);
+
+    const events = eventData.map((ev, i) => {
+        const pos = latLonToVec3(ev.lat, ev.lon, GLOBE_RADIUS * 1.02);
+
+        const dot = new THREE.Mesh(
+            new THREE.SphereGeometry(0.05, 10, 10),
+            new THREE.MeshBasicMaterial({ color: NODE_RED, transparent: true, opacity: 0.95 })
         );
-        const target = latLonToVec3(
-            (Math.random() - 0.5) * 80,
-            Math.random() * 360 - 180,
-            GLOBE_RADIUS * 1.01
+        dot.position.copy(pos);
+        eventGroup.add(dot);
+
+        const ring = new THREE.Mesh(
+            new THREE.RingGeometry(0.07, 0.095, 24),
+            new THREE.MeshBasicMaterial({ color: NODE_RED, transparent: true, opacity: 0.6, side: THREE.DoubleSide })
         );
-        const points = [];
+        ring.position.copy(pos);
+        ring.lookAt(0, 0, 0);
+        eventGroup.add(ring);
+
+        // Invisible-but-raycastable hit target so hover/tap has a generous area
+        const hit = new THREE.Mesh(
+            new THREE.SphereGeometry(0.15, 8, 8),
+            new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false })
+        );
+        hit.position.copy(pos);
+        hit.userData.eventIndex = i;
+        eventGroup.add(hit);
+
+        // Incoming strike line, anchored to the event instead of random
+        const origin = pos.clone().normalize().multiplyScalar(GLOBE_RADIUS * 1.7)
+            .applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.35);
+        const pts = [];
         for (let j = 0; j <= 24; j++) {
-            points.push(new THREE.Vector3().lerpVectors(origin, target, j / 24));
+            pts.push(new THREE.Vector3().lerpVectors(origin, pos, j / 24));
         }
-        const geo = new THREE.BufferGeometry().setFromPoints(points);
-        const mat = new THREE.LineBasicMaterial({
-            color: RED,
-            transparent: true,
-            opacity: 0
-        });
-        const line = new THREE.Line(geo, mat);
-        root.add(line);
-        threatLines.push({
-            line,
-            mat,
-            phase: Math.random() * 20,
-            duration: 2 + Math.random() * 3,
-            interval: 8 + Math.random() * 12
-        });
+        const lineMat = new THREE.LineBasicMaterial({ color: RED, transparent: true, opacity: 0 });
+        eventGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), lineMat));
+
+        return {
+            name: ev.name,
+            ratio: ev.ratio,
+            dot,
+            ring,
+            hit,
+            lineMat,
+            phase: i * 4.7,
+            interval: 9 + i * 2.3,
+            duration: 2.2,
+        };
+    });
+
+    // ---- Event tooltip (HTML overlay) ----
+    const globeContainer = canvas.parentElement;
+    const tooltip = document.createElement('div');
+    tooltip.className = 'globe-tooltip';
+    tooltip.innerHTML =
+        '<span class="tt-name"></span>' +
+        '<span class="tt-ratio"></span>' +
+        '<span class="tt-hint">Click for the research →</span>';
+    globeContainer.appendChild(tooltip);
+    const ttName = tooltip.querySelector('.tt-name');
+    const ttRatio = tooltip.querySelector('.tt-ratio');
+
+    const raycaster = new THREE.Raycaster();
+    const mouseNDC = new THREE.Vector2(-2, -2);
+    const eventHitMeshes = events.map(ev => ev.hit);
+    let hoveredEvent = null;
+
+    function updateNDC(clientX, clientY) {
+        const r = canvas.getBoundingClientRect();
+        mouseNDC.set(
+            ((clientX - r.left) / r.width) * 2 - 1,
+            -(((clientY - r.top) / r.height) * 2 - 1)
+        );
     }
+
+    canvas.addEventListener('mousemove', (e) => updateNDC(e.clientX, e.clientY));
 
     // ---- Random node ping pool (occasional expanding rings) ----
     const PING_COUNT = 5;
@@ -550,11 +595,15 @@
         return { x: t.clientX, y: t.clientY };
     }
 
+    let downPointer = null;
+
     function onDown(e) {
         isDragging = true;
         velocityX = 0;
         velocityY = 0;
         prevPointer = pointerPos(e);
+        downPointer = { x: prevPointer.x, y: prevPointer.y };
+        updateNDC(prevPointer.x, prevPointer.y); // so taps can hit event markers
         canvas.style.cursor = 'grabbing';
     }
 
@@ -578,6 +627,15 @@
     function onUp() {
         isDragging = false;
         canvas.style.cursor = 'grab';
+        // A press that barely moved is a click/tap — open the research if it
+        // landed on an event marker
+        if (downPointer) {
+            const moved = Math.hypot(prevPointer.x - downPointer.x, prevPointer.y - downPointer.y);
+            downPointer = null;
+            if (moved < 6 && hoveredEvent) {
+                window.open(WRITEUP_URL, '_blank', 'noopener');
+            }
+        }
     }
 
     canvas.addEventListener('mousedown', onDown);
@@ -697,15 +755,48 @@
             sat.trail.geometry.attributes.position.needsUpdate = true;
         }
 
-        // Threat/intercept lines flash
-        for (const tl of threatLines) {
-            const cycle = (elapsed + tl.phase) % tl.interval;
-            if (cycle < tl.duration) {
-                const t = cycle / tl.duration;
-                tl.mat.opacity = Math.sin(t * Math.PI) * 0.25;
+        // Cost-exchange events: pulse markers, flash incoming strike lines
+        for (const ev of events) {
+            const pulse = Math.sin(elapsed * 2.4 + ev.phase) * 0.5 + 0.5;
+            ev.ring.scale.setScalar(1 + pulse * 0.8);
+            ev.ring.material.opacity = 0.2 + pulse * 0.4;
+            ev.dot.material.opacity = 0.65 + pulse * 0.35;
+
+            const cycle = (elapsed + ev.phase) % ev.interval;
+            ev.lineMat.opacity = cycle < ev.duration
+                ? Math.sin((cycle / ev.duration) * Math.PI) * 0.3
+                : 0;
+        }
+
+        // Event hover: raycast against hit targets, front hemisphere only
+        const _evWorld = new THREE.Vector3();
+        raycaster.setFromCamera(mouseNDC, camera);
+        const evHits = raycaster.intersectObjects(eventHitMeshes);
+        let hitEvent = null;
+        if (evHits.length) {
+            const cand = events[evHits[0].object.userData.eventIndex];
+            cand.hit.getWorldPosition(_evWorld);
+            if (_evWorld.z > 0.3) hitEvent = cand;
+        }
+        if (hitEvent !== hoveredEvent) {
+            hoveredEvent = hitEvent;
+            if (hitEvent) {
+                ttName.textContent = hitEvent.name;
+                ttRatio.textContent = hitEvent.ratio;
+                tooltip.classList.add('visible');
             } else {
-                tl.mat.opacity = 0;
+                tooltip.classList.remove('visible');
             }
+        }
+        if (hoveredEvent) {
+            hoveredEvent.dot.getWorldPosition(_evWorld);
+            _evWorld.project(camera);
+            const dim = canvas.clientWidth;
+            tooltip.style.left = (canvas.offsetLeft + (_evWorld.x * 0.5 + 0.5) * dim) + 'px';
+            tooltip.style.top = (canvas.offsetTop + (-_evWorld.y * 0.5 + 0.5) * dim) + 'px';
+        }
+        if (!isDragging) {
+            canvas.style.cursor = hoveredEvent ? 'pointer' : 'grab';
         }
 
         // Arc pulse + traveling data packets
