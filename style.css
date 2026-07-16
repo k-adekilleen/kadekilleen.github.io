@@ -555,13 +555,22 @@ body:has(.hero) {
     color: var(--gray);
 }
 
-/* Currently module */
+/* Currently / Favorites modules */
 .currently-list {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 1.15rem;
     max-width: 620px;
+    margin-bottom: 3.25rem;
+}
+
+.currently-list:last-child {
+    margin-bottom: 0;
+}
+
+.currently-list--fav .currently-label {
+    color: var(--gray);
 }
 
 .currently-list li {
