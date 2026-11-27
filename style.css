@@ -333,26 +333,10 @@ body:has(.hero) {
     margin-bottom: 2.5rem;
 }
 
-.about-intro {
-    display: flex;
-    gap: 2.5rem;
-    align-items: flex-start;
+.about-bio {
+    max-width: 640px;
+    margin-top: 1.5rem;
     margin-bottom: 3.25rem;
-}
-
-.about-photo {
-    width: 240px;
-    height: 300px;
-    flex-shrink: 0;
-}
-
-.about-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 18%;
-    border-radius: 12px;
-    border: 1px solid var(--charcoal-light);
 }
 
 .about-bio p {
@@ -846,21 +830,6 @@ footer {
 
     .hero-globe {
         width: 320px;
-    }
-
-    .about-intro {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .about-photo {
-        width: 210px;
-        height: 260px;
-    }
-
-    .about-bio {
-        text-align: left;
     }
 
     .role-dates {
