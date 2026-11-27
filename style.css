@@ -83,6 +83,10 @@ nav {
     color: var(--accent);
 }
 
+.nav-logo-mark {
+    display: block;
+}
+
 .nav-links {
     list-style: none;
     display: flex;
@@ -171,6 +175,17 @@ body:has(.hero) {
     margin-bottom: 1rem;
     letter-spacing: -0.025em;
     color: var(--white);
+}
+
+.hero h1.hero-line {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: -0.015em;
+    margin-bottom: 0;
+    max-width: 40ch;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-tagline {
@@ -754,6 +769,10 @@ footer {
 
     .hero h1 {
         font-size: 2.25rem;
+    }
+
+    .hero h1.hero-line {
+        font-size: 1.2rem;
     }
 
     .hero-globe {
