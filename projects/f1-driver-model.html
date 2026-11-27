@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isolating Driver Skill in Formula 1 - Kade Killeen</title>
+    <meta name="description" content="A Bayesian hierarchical model that separates a driver's pace from the car beneath them, across the 2022 to 2025 ground-effect era.">
+    <meta name="author" content="Kade Killeen">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Isolating Driver Skill in Formula 1">
+    <meta property="og:description" content="A Bayesian hierarchical model that separates a driver's pace from the car beneath them, across the 2022 to 2025 ground-effect era.">
+    <meta property="og:url" content="https://kadekilleen.github.io/projects/f1-driver-model.html">
+    <meta property="og:image" content="https://kadekilleen.github.io/assets/projects/f1-driver-model/quali_vs_race.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Isolating Driver Skill in Formula 1">
+    <meta name="twitter:description" content="A Bayesian hierarchical model that separates a driver's pace from the car beneath them, across the 2022 to 2025 ground-effect era.">
+    <meta name="twitter:image" content="https://kadekilleen.github.io/assets/projects/f1-driver-model/quali_vs_race.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css?v=25">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../index.html" class="nav-logo">Kade Killeen</a>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="../projects.html" class="active">Projects</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="page-section project-page">
+            <a class="back-link" href="../projects.html">&larr; All projects</a>
+            <h1>Isolating Driver Skill in Formula 1</h1>
+            <p class="project-meta">Bayesian modeling &middot; PyMC &middot; 2022&ndash;2025 data</p>
+
+            <p>In Formula 1, the car usually matters more than the driver. This project uses a Bayesian hierarchical model to separate a driver's true pace from the car beneath them, across the 2022&ndash;2025 ground-effect era.</p>
+            <p>The model is fit on 64,745 racing laps and validated against teammate head-to-heads (r&nbsp;=&nbsp;0.92). The headline: Verstappen is a class of one.</p>
+
+            <figure class="project-figure">
+                <img src="../assets/projects/f1-driver-model/quali_vs_race.png" alt="Scatter plot of each driver's qualifying effect against race-pace effect. Verstappen sits alone in the bottom-left corner, fastest on both.">
+                <figcaption>One-lap speed vs race craft for each driver, as a percentage of lap time. Negative is faster.</figcaption>
+            </figure>
+
+            <a class="btn btn-primary" href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/f1-driver-model/output/writeup.md" target="_blank" rel="noopener noreferrer">Read the full writeup &#8599;</a>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Kade Killeen</p>
+            <ul class="footer-links">
+                <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack</a></li>
+                <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="../main.js?v=9"></script>
+</body>
+</html>

@@ -18,7 +18,8 @@ Cache busting is manual: when `style.css`, `main.js`, or `globe.js` change, bump
 |---|---|
 | `index.html` | Home page with the interactive globe |
 | `about.html` | Bio, experience, education |
-| `projects.html` | Research and things I've built |
+| `projects.html` | List of research projects, each linking to its own page |
+| `projects/` | One page per project. To add one, copy `projects/_template.html` and follow the steps at its top |
 | `contact.html` | Email and links |
 | `style.css` | All styles, one file |
 | `main.js` | Nav toggle and the copy-email button |
