@@ -348,26 +348,10 @@ body:has(.hero) {
     margin-bottom: 2.5rem;
 }
 
-.about-intro {
-    display: flex;
-    gap: 2.5rem;
-    align-items: flex-start;
+.about-bio {
+    max-width: 640px;
+    margin-top: 1.5rem;
     margin-bottom: 3.25rem;
-}
-
-.about-photo {
-    width: 240px;
-    height: 300px;
-    flex-shrink: 0;
-}
-
-.about-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 18%;
-    border-radius: 12px;
-    border: 1px solid var(--charcoal-light);
 }
 
 .about-bio p {
@@ -553,85 +537,213 @@ body:has(.hero) {
     font-weight: 500;
 }
 
-/* ===== Contact ===== */
-.contact-email-row {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2.75rem;
+/* Project list entries: thumbnail + text */
+.project-item {
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    gap: 1.4rem;
+    align-items: start;
 }
 
-.contact-email {
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--white);
-    padding-bottom: 3px;
-    background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0% 2px no-repeat;
-    transition: background-size 0.3s ease, color 0.15s;
+.project-thumb {
+    display: block;
+    aspect-ratio: 16 / 10;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #fcfcfa;
+    border: 1px solid var(--hairline);
+    transition: border-color 0.15s;
 }
 
-.contact-email:hover {
-    color: var(--white);
-    background-size: 100% 2px;
+.project-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
 }
 
-.copy-btn {
-    font-family: var(--font);
-    font-size: 0.68rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--gray);
-    background: none;
-    border: 1px solid #383838;
-    border-radius: 4px;
-    padding: 0.3rem 0.65rem;
-    cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
-}
-
-.copy-btn:hover {
-    color: var(--white);
-    border-color: var(--gray);
-}
-
-.copy-btn.copied {
-    color: var(--accent);
+.project-item:hover .project-thumb {
     border-color: var(--accent);
 }
 
-.contact-links-row {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 2rem;
+.project-item:hover .project-thumb img {
+    transform: scale(1.04);
 }
 
-.contact-links-row a {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.35rem;
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--gray-light);
-    transition: color 0.15s;
+/* ===== Project detail page (projects/*.html) ===== */
+.project-page {
+    max-width: 720px;
 }
 
-.contact-links-row .ext {
-    font-size: 0.8em;
+.project-page h1 {
+    margin-bottom: 0.5rem;
+}
+
+.project-page > p:not(.project-meta) {
+    max-width: 64ch;
+    margin-bottom: 1rem;
+}
+
+.project-page .project-meta {
+    margin-bottom: 1.75rem;
+}
+
+.back-link {
+    display: inline-block;
+    font-size: 0.85rem;
     color: var(--gray);
-    transition: transform 0.15s, color 0.15s;
+    margin-bottom: 1.25rem;
 }
 
-.contact-links-row a:hover {
+.back-link:hover {
     color: var(--white);
 }
 
-.contact-links-row a:hover .ext {
-    color: var(--accent);
-    transform: translate(2px, -2px);
+.project-figure {
+    margin: 2rem 0;
+}
+
+.project-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    background-color: #fcfcfa;
+}
+
+.project-figure figcaption {
+    font-size: 0.82rem;
+    color: var(--gray);
+    margin-top: 0.6rem;
+}
+
+@media (max-width: 640px) {
+    .project-item {
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+    }
+}
+
+/* ===== Contact ===== */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.contact-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex: 1;
+}
+
+main:has(.contact-page) {
+    display: flex;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-graphic .sweep,
+    .contact-graphic .pulse,
+    .contact-graphic .blip { animation: none; }
+}
+
+.contact-graphic {
+    width: min(240px, 60vw);
+    height: auto;
+    overflow: visible;
+}
+
+.contact-graphic .ring,
+.contact-graphic .axis {
+    fill: none;
+    stroke: #3a3a3a;
+    stroke-width: 1;
+}
+
+.contact-graphic .sweep path {
+    fill: var(--accent);
+    opacity: 0.14;
+}
+
+.contact-graphic .sweep {
+    transform-origin: 120px 120px;
+    animation: sweep 6s linear infinite;
+}
+
+.contact-graphic .pulse {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.2;
+    transform-origin: 120px 120px;
+    animation: pulse 3s ease-out infinite;
+}
+
+.contact-graphic .center,
+.contact-graphic .blip {
+    fill: var(--accent);
+}
+
+.contact-graphic .blip {
+    animation: blip 6s linear infinite;
+}
+
+@keyframes sweep { to { transform: rotate(360deg); } }
+@keyframes pulse {
+    from { transform: scale(1); opacity: 0.8; }
+    to { transform: scale(5.5); opacity: 0; }
+}
+@keyframes blip {
+    0%, 4% { opacity: 0.2; }
+    8% { opacity: 1; }
+    40%, 100% { opacity: 0.2; }
+}
+
+.contact-buttons {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 520px;
+}
+
+.contact-buttons a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1.1rem 0.5rem 0.9rem;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: var(--gray-light);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.15s, border-color 0.15s, transform 0.15s, background-color 0.15s;
+}
+
+.contact-buttons svg {
+    width: 26px;
+    height: 26px;
+}
+
+.contact-buttons a:hover,
+.contact-buttons a:focus-visible {
+    color: var(--white);
+    border-color: var(--accent);
+    background-color: rgba(74, 144, 217, 0.06);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    .contact-buttons { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* Currently module, laid out horizontally */
@@ -687,16 +799,15 @@ body:has(.hero) {
     .page-section .section-lede,
     .page-section .eyebrow,
     .project-item,
-    .contact-email-row,
-    .contact-links-row {
+    .contact-graphic,
+    .contact-buttons {
         opacity: 0;
         animation: rise 0.5s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
     }
 
-    .page-section .section-lede,
-    .contact-email-row { animation-delay: 0.06s; }
-    .page-section .eyebrow,
-    .contact-links-row { animation-delay: 0.12s; }
+    .page-section .section-lede { animation-delay: 0.06s; }
+    .contact-buttons { animation-delay: 0.12s; }
+    .page-section .eyebrow { animation-delay: 0.12s; }
     .project-item:nth-child(1) { animation-delay: 0.18s; }
     .project-item:nth-child(2) { animation-delay: 0.26s; }
 }
@@ -777,21 +888,6 @@ footer {
 
     .hero-globe {
         width: 320px;
-    }
-
-    .about-intro {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .about-photo {
-        width: 210px;
-        height: 260px;
-    }
-
-    .about-bio {
-        text-align: left;
     }
 
     .role-dates {
