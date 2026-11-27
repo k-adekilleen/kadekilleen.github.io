@@ -1,101 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Kade Killeen</title>
+    <title>Contact | Kade Killeen</title>
     <meta name="description" content="Get in touch with Kade Killeen: email, LinkedIn, GitHub, and Substack.">
     <meta name="author" content="Kade Killeen">
+    <meta name="theme-color" content="#1E37C8">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Contact | Kade Killeen">
     <meta property="og:description" content="Get in touch with Kade Killeen: email, LinkedIn, GitHub, and Substack.">
     <meta property="og:url" content="https://kadekilleen.github.io/contact.html">
-    <meta property="og:image" content="https://kadekilleen.github.io/assets/headshot-color.jpg">
+    <meta property="og:image" content="https://kadekilleen.github.io/assets/og-card.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Contact | Kade Killeen">
     <meta name="twitter:description" content="Get in touch with Kade Killeen: email, LinkedIn, GitHub, and Substack.">
-    <meta name="twitter:image" content="https://kadekilleen.github.io/assets/headshot-color.jpg">
+    <meta name="twitter:image" content="https://kadekilleen.github.io/assets/og-card.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="style.css?v=26">
+    <link rel="stylesheet" href="style.css?v=30">
+    <script>document.documentElement.classList.remove('no-js')</script>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="nav-logo" aria-label="Home">
-                <svg class="nav-logo-mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false">
-                    <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 7 V25"/>
-                        <path d="M13.5 7 L6 16 L13.5 25"/>
-                        <path d="M18.5 7 V25"/>
-                        <path d="M27 7 L19.5 16 L27 25"/>
-                    </g>
-                </svg>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Main">
+            <a href="index.html" class="brand" aria-label="Kade Killeen, home">
+                <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="square"><path d="M4 11.5 16 4.5l12 7z"/><path d="M5 14.5h22M5 26.5h22M3 29.5h26"/><path d="M8 14.5v12M13.3 14.5v12M18.7 14.5v12M24 14.5v12"/></g></svg>
+                <span class="brand-word">KK</span>
             </a>
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
             </button>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html"><span class="n">01</span>Home</a></li>
+                <li><a href="about.html"><span class="n">02</span>About</a></li>
+                <li><a href="projects.html"><span class="n">03</span>Projects</a></li>
+                <li><a href="contact.html" class="active" aria-current="page"><span class="n">04</span>Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section class="page-section contact-page">
-            <h1 class="visually-hidden">Contact</h1>
-
-            <svg class="contact-graphic" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
-                <circle class="ring" cx="120" cy="120" r="110"/>
-                <circle class="ring" cx="120" cy="120" r="80"/>
-                <circle class="ring" cx="120" cy="120" r="50"/>
-                <circle class="ring" cx="120" cy="120" r="20"/>
-                <line class="axis" x1="10" y1="120" x2="230" y2="120"/>
-                <line class="axis" x1="120" y1="10" x2="120" y2="230"/>
-                <circle class="pulse" cx="120" cy="120" r="20"/>
-                <g class="sweep">
-                    <path d="M120 120 L120 10 A110 110 0 0 1 197.8 42.2 Z"/>
-                </g>
-                <circle class="blip" cx="168" cy="74" r="3.5"/>
-                <circle class="center" cx="120" cy="120" r="4"/>
-            </svg>
-
-            <ul class="contact-buttons">
-                <li><a href="mailto:kadekilleen23@gmail.com" aria-label="Email">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 6.5 12 13l8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-                    <span>Email</span></a></li>
-                <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.7h-4v-5.05c0-1.2-.02-2.75-1.7-2.75-1.7 0-1.95 1.3-1.95 2.66v5.14h-4z"/></svg>
-                    <span>LinkedIn</span></a></li>
-                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.85.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
-                    <span>GitHub</span></a></li>
-                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer" aria-label="Substack">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 3h16v2.4H4zM4 7.6h16V10H4zM4 12.2h16V22l-8-4.5L4 22z"/></svg>
-                    <span>Substack</span></a></li>
-            </ul>
-        </section>
+    <main id="main">
+        <div class="wrap">
+            <section class="contact-stage">
+                <h1 class="visually-hidden">Contact</h1>
+                <svg class="astrolabe" viewBox="0 0 400 400" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1">
+<circle cx="200" cy="200" r="188" stroke-width="1.5"/>
+<circle cx="200" cy="200" r="176"/>
+<g class="spin-slow"><path d="M200.0 24.0L200.0 42.0M209.2 24.2L208.8 32.2M218.4 25.0L217.6 32.9M227.5 26.2L226.3 34.1M236.6 27.8L234.9 35.7M245.6 30.0L242.2 42.6M254.4 32.6L251.9 40.2M263.1 35.7L260.2 43.2M271.6 39.2L268.3 46.5M279.9 43.2L276.3 50.3M288.0 47.6L279.0 63.2M295.9 52.4L291.5 59.1M303.5 57.6L298.7 64.1M310.8 63.2L305.7 69.4M317.8 69.2L312.4 75.2M324.5 75.5L315.3 84.7M330.8 82.2L324.8 87.6M336.8 89.2L330.6 94.3M342.4 96.5L335.9 101.3M347.6 104.1L340.9 108.5M352.4 112.0L336.8 121.0M356.8 120.1L349.7 123.7M360.8 128.4L353.5 131.7M364.3 136.9L356.8 139.8M367.4 145.6L359.8 148.1M370.0 154.4L357.4 157.8M372.2 163.4L364.3 165.1M373.8 172.5L365.9 173.7M375.0 181.6L367.1 182.4M375.8 190.8L367.8 191.2M376.0 200.0L358.0 200.0M375.8 209.2L367.8 208.8M375.0 218.4L367.1 217.6M373.8 227.5L365.9 226.3M372.2 236.6L364.3 234.9M370.0 245.6L357.4 242.2M367.4 254.4L359.8 251.9M364.3 263.1L356.8 260.2M360.8 271.6L353.5 268.3M356.8 279.9L349.7 276.3M352.4 288.0L336.8 279.0M347.6 295.9L340.9 291.5M342.4 303.5L335.9 298.7M336.8 310.8L330.6 305.7M330.8 317.8L324.8 312.4M324.5 324.5L315.3 315.3M317.8 330.8L312.4 324.8M310.8 336.8L305.7 330.6M303.5 342.4L298.7 335.9M295.9 347.6L291.5 340.9M288.0 352.4L279.0 336.8M279.9 356.8L276.3 349.7M271.6 360.8L268.3 353.5M263.1 364.3L260.2 356.8M254.4 367.4L251.9 359.8M245.6 370.0L242.2 357.4M236.6 372.2L234.9 364.3M227.5 373.8L226.3 365.9M218.4 375.0L217.6 367.1M209.2 375.8L208.8 367.8M200.0 376.0L200.0 358.0M190.8 375.8L191.2 367.8M181.6 375.0L182.4 367.1M172.5 373.8L173.7 365.9M163.4 372.2L165.1 364.3M154.4 370.0L157.8 357.4M145.6 367.4L148.1 359.8M136.9 364.3L139.8 356.8M128.4 360.8L131.7 353.5M120.1 356.8L123.7 349.7M112.0 352.4L121.0 336.8M104.1 347.6L108.5 340.9M96.5 342.4L101.3 335.9M89.2 336.8L94.3 330.6M82.2 330.8L87.6 324.8M75.5 324.5L84.7 315.3M69.2 317.8L75.2 312.4M63.2 310.8L69.4 305.7M57.6 303.5L64.1 298.7M52.4 295.9L59.1 291.5M47.6 288.0L63.2 279.0M43.2 279.9L50.3 276.3M39.2 271.6L46.5 268.3M35.7 263.1L43.2 260.2M32.6 254.4L40.2 251.9M30.0 245.6L42.6 242.2M27.8 236.6L35.7 234.9M26.2 227.5L34.1 226.3M25.0 218.4L32.9 217.6M24.2 209.2L32.2 208.8M24.0 200.0L42.0 200.0M24.2 190.8L32.2 191.2M25.0 181.6L32.9 182.4M26.2 172.5L34.1 173.7M27.8 163.4L35.7 165.1M30.0 154.4L42.6 157.8M32.6 145.6L40.2 148.1M35.7 136.9L43.2 139.8M39.2 128.4L46.5 131.7M43.2 120.1L50.3 123.7M47.6 112.0L63.2 121.0M52.4 104.1L59.1 108.5M57.6 96.5L64.1 101.3M63.2 89.2L69.4 94.3M69.2 82.2L75.2 87.6M75.5 75.5L84.7 84.7M82.2 69.2L87.6 75.2M89.2 63.2L94.3 69.4M96.5 57.6L101.3 64.1M104.1 52.4L108.5 59.1M112.0 47.6L121.0 63.2M120.1 43.2L123.7 50.3M128.4 39.2L131.7 46.5M136.9 35.7L139.8 43.2M145.6 32.6L148.1 40.2M154.4 30.0L157.8 42.6M163.4 27.8L165.1 35.7M172.5 26.2L173.7 34.1M181.6 25.0L182.4 32.9M190.8 24.2L191.2 32.2"/>
+<text x="200.0" y="60.0" transform="rotate(0 200.0 60.0)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">XII</text>
+<text x="270.0" y="78.8" transform="rotate(30 270.0 78.8)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">I</text>
+<text x="321.2" y="130.0" transform="rotate(60 321.2 130.0)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">II</text>
+<text x="340.0" y="200.0" transform="rotate(90 340.0 200.0)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">III</text>
+<text x="321.2" y="270.0" transform="rotate(120 321.2 270.0)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">IV</text>
+<text x="270.0" y="321.2" transform="rotate(150 270.0 321.2)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">V</text>
+<text x="200.0" y="340.0" transform="rotate(180 200.0 340.0)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">VI</text>
+<text x="130.0" y="321.2" transform="rotate(210 130.0 321.2)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">VII</text>
+<text x="78.8" y="270.0" transform="rotate(240 78.8 270.0)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">VIII</text>
+<text x="60.0" y="200.0" transform="rotate(270 60.0 200.0)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">IX</text>
+<text x="78.8" y="130.0" transform="rotate(300 78.8 130.0)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">X</text>
+<text x="130.0" y="78.8" transform="rotate(330 130.0 78.8)" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-weight="600">XI</text>
+</g>
+<circle cx="200" cy="200" r="122"/>
+<g class="spin-rev">
+<circle cx="200" cy="174" r="82" stroke-width="1.4"/>
+<circle cx="200" cy="174" r="70" stroke-dasharray="2 5"/>
+<circle cx="200" cy="200" r="104" stroke-dasharray="1 4" opacity=".7"/>
+<path d="M241.6 117.9L237.6 96.6"/>
+<circle cx="237.6" cy="96.6" r="2.6" fill="currentColor"/>
+<path d="M277.2 189.0L292.7 175.2"/>
+<circle cx="292.7" cy="175.2" r="2.6" fill="currentColor"/>
+<path d="M251.4 278.7L272.0 285.8"/>
+<circle cx="272.0" cy="285.8" r="2.6" fill="currentColor"/>
+<path d="M163.0 259.4L162.8 279.8"/>
+<circle cx="162.8" cy="279.8" r="2.6" fill="currentColor"/>
+<path d="M114.0 201.7L97.0 214.5"/>
+<circle cx="97.0" cy="214.5" r="2.6" fill="currentColor"/>
+<path d="M157.4 139.5L138.4 131.6"/>
+<circle cx="138.4" cy="131.6" r="2.6" fill="currentColor"/>
+</g>
+<g class="needle"><path d="M200 376V24" stroke-width="1.5"/><path d="M193 50h14M193 350h14"/><path d="M200 14l-6 14h12z" fill="#E8552A" stroke="#E8552A"/></g>
+<circle cx="200" cy="200" r="9" stroke-width="1.5"/><circle cx="200" cy="200" r="2.5" fill="currentColor"/>
+</g></svg>
+                <ul class="contact-buttons">
+                <li><a href="mailto:kadekilleen23@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Email</span></a></li>
+                <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.7h-4v-5.05c0-1.2-.02-2.75-1.7-2.75-1.7 0-1.95 1.3-1.95 2.66v5.14h-4z"/></svg><span>LinkedIn</span></a></li>
+                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.85.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg><span>GitHub</span></a></li>
+                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 3h16v2.4H4zM4 7.6h16V10H4zM4 12.2h16V22l-8-4.5L4 22z"/></svg><span>Substack</span></a></li>
+                </ul>
+            </section>
+        </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 Kade Killeen</p>
-            <ul class="footer-links">
-                <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack</a></li>
-                <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
-            </ul>
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="meander" aria-hidden="true"></div>
+            <div class="footer-row">
+                <span class="footer-sig">Kade Killeen &middot; MMXXVI</span>
+                <ul class="footer-links">
+                    <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                    <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack</a></li>
+                    <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
+                </ul>
+            </div>
         </div>
     </footer>
 
-    <script src="main.js?v=9"></script>
+    <script src="main.js?v=30"></script>
 </body>
 </html>

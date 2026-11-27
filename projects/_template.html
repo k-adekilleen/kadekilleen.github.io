@@ -1,90 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <!--
       New project page:
       1. Put the key figure in assets/projects/SLUG/.
       2. Copy this file to projects/SLUG.html and replace every CAPS placeholder.
-      3. Add an entry to projects.html (copy an existing <li class="project-item">).
+      3. Add an entry to projects.html (copy an existing <li class="index-item">).
     -->
     <meta name="robots" content="noindex">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROJECT TITLE - Kade Killeen</title>
+    <title>PROJECT TITLE | Kade Killeen</title>
     <meta name="description" content="One sentence for search and link previews.">
     <meta name="author" content="Kade Killeen">
+    <meta name="theme-color" content="#1E37C8">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="PROJECT TITLE">
+    <meta property="og:title" content="PROJECT TITLE | Kade Killeen">
     <meta property="og:description" content="One sentence for search and link previews.">
     <meta property="og:url" content="https://kadekilleen.github.io/projects/SLUG.html">
     <meta property="og:image" content="https://kadekilleen.github.io/assets/projects/SLUG/FIGURE.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="PROJECT TITLE">
+    <meta name="twitter:title" content="PROJECT TITLE | Kade Killeen">
     <meta name="twitter:description" content="One sentence for search and link previews.">
     <meta name="twitter:image" content="https://kadekilleen.github.io/assets/projects/SLUG/FIGURE.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-    <link rel="stylesheet" href="../style.css?v=26">
+    <link rel="stylesheet" href="../style.css?v=30">
+    <script>document.documentElement.classList.remove('no-js')</script>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="../index.html" class="nav-logo" aria-label="Home">
-                <svg class="nav-logo-mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false">
-                    <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 7 V25"/>
-                        <path d="M13.5 7 L6 16 L13.5 25"/>
-                        <path d="M18.5 7 V25"/>
-                        <path d="M27 7 L19.5 16 L27 25"/>
-                    </g>
-                </svg>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Main">
+            <a href="../index.html" class="brand" aria-label="Kade Killeen, home">
+                <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="square"><path d="M4 11.5 16 4.5l12 7z"/><path d="M5 14.5h22M5 26.5h22M3 29.5h26"/><path d="M8 14.5v12M13.3 14.5v12M18.7 14.5v12M24 14.5v12"/></g></svg>
+                <span class="brand-word">KK</span>
             </a>
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
             </button>
-            <ul class="nav-links">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="../projects.html" class="active">Projects</a></li>
-                <li><a href="../contact.html">Contact</a></li>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index.html"><span class="n">01</span>Home</a></li>
+                <li><a href="../about.html"><span class="n">02</span>About</a></li>
+                <li><a href="../projects.html" class="active" aria-current="page"><span class="n">03</span>Projects</a></li>
+                <li><a href="../contact.html"><span class="n">04</span>Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <article class="page-section project-page">
-            <a class="back-link" href="../projects.html">&larr; All projects</a>
-            <h1>PROJECT TITLE</h1>
-            <p class="project-meta">Topic &middot; Method &middot; Data</p>
+    <main id="main">
+        <div class="wrap">
+            <header class="article-hero">
+                <a class="back-link" href="../projects.html">&larr; All projects</a>
+                <p class="label" style="margin-bottom:18px"><span style="color:var(--signal)">No. 0N</span></p>
+                <h1>PROJECT <em>TITLE</em></h1>
+                <ul class="article-meta"><li>METHOD</li><li>TOOLS</li><li>DATA</li></ul>
+            </header>
 
-            <p>Two or three sentences: the question and why it matters.</p>
-            <p>One or two sentences: what you found.</p>
+            <section class="article-body">
+                <p class="label">&sect; Summary</p>
+                <div class="prose">
+                    <p>OPENING SENTENCE: the question and why it matters.</p>
+                    <p>SECOND PARAGRAPH: what you built and the headline result.</p>
+                    <div class="stat-row"><div class="stat"><div class="v">NUMBER</div><div class="k">WHAT IT COUNTS</div></div><div class="stat"><div class="v">NUMBER</div><div class="k">WHAT IT COUNTS</div></div></div>
+                </div>
+            </section>
 
-            <figure class="project-figure">
-                <img src="../assets/projects/SLUG/FIGURE.png" alt="Describe what the chart shows.">
-                <figcaption>One line explaining how to read the chart.</figcaption>
+            <figure class="figure-plate reveal">
+                <img src="../assets/projects/SLUG/FIGURE.png" alt="Describe the chart for screen readers." loading="lazy">
+                <figcaption><b>Fig. 1</b><span>One-line caption for the key chart.</span></figcaption>
             </figure>
 
-            <a class="btn btn-primary" href="LINK TO FULL WRITEUP" target="_blank" rel="noopener noreferrer">Read the full writeup &#8599;</a>
-        </article>
+            <div class="article-cta">
+                <a class="btn btn-blue" href="WRITEUP_URL" target="_blank" rel="noopener noreferrer">Read the full writeup <span class="arr">&#8599;</span></a>
+                <a class="btn" href="../projects.html">All projects</a>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 Kade Killeen</p>
-            <ul class="footer-links">
-                <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack</a></li>
-                <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
-            </ul>
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="meander" aria-hidden="true"></div>
+            <div class="footer-row">
+                <span class="footer-sig">Kade Killeen &middot; MMXXVI</span>
+                <ul class="footer-links">
+                    <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                    <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack</a></li>
+                    <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
+                </ul>
+            </div>
         </div>
     </footer>
 
-    <script src="../main.js?v=9"></script>
+    <script src="../main.js?v=30"></script>
 </body>
 </html>
