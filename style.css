@@ -862,3 +862,4 @@ main { flex: 1; width: 100%; }
 }
 .intro p:last-child { margin-bottom: 0; }
 .intro p em { font-style: italic; color: var(--accent); }
+.page-hero + .section { padding-top: clamp(8px, 2vw, 24px); }
