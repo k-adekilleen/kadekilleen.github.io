@@ -602,14 +602,14 @@ main { flex: 1; width: 100%; }
     position: relative;
 }
 @media (min-width: 860px) {
-    .index-item a { grid-template-columns: 80px 1.3fr 1fr 280px; align-items: center; gap: 32px; }
+    .index-item a { grid-template-columns: 1fr 1.25fr 280px; align-items: center; gap: 40px; }
 }
 .index-item .no { font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
 .index-item h2 {
     font-family: var(--serif);
     font-weight: 500;
-    font-size: clamp(32px, 4vw, 52px);
-    line-height: 0.98;
+    font-size: clamp(28px, 2.8vw, 38px);
+    line-height: 1.02;
     transition: color 0.3s;
 }
 .index-item h2 em { font-style: italic; }
@@ -884,3 +884,7 @@ main .about-first ~ .section .section-head h2,
 .section-head.with-art .head-art svg.spin { animation: spin 240s linear infinite; }
 .section-head.with-art .head-art .spin-ring { transform-box: view-box; transform-origin: 100px 100px; animation: spin 240s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .section-head.with-art .head-art svg.spin, .section-head.with-art .head-art .spin-ring { animation: none; } }
+
+.projects-hero { padding-bottom: clamp(24px, 3vw, 36px); }
+.projects-hero .lede { margin-top: 0; }
+@media (max-width: 859px) { .index-item h2 { padding-right: 28px; } }
