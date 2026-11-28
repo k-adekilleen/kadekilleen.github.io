@@ -882,4 +882,5 @@ main .about-first ~ .section .section-head h2,
 }
 .section-head.with-art .head-art svg { width: 100%; height: 100%; }
 .section-head.with-art .head-art svg.spin { animation: spin 240s linear infinite; }
-@media (prefers-reduced-motion: reduce) { .section-head.with-art .head-art svg.spin { animation: none; } }
+.section-head.with-art .head-art .spin-ring { transform-box: view-box; transform-origin: 100px 100px; animation: spin 240s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .section-head.with-art .head-art svg.spin, .section-head.with-art .head-art .spin-ring { animation: none; } }
