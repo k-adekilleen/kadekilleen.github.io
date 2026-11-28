@@ -1,8 +1,8 @@
 // Home hero: a temple rising out of a line-drawn sea.
 // Plain 2D canvas, no libraries. Waves are drawn back-to-front and each one is
 // filled underneath, so nearer swells hide the ones (and the temple) behind them.
-// Clicking or tapping the sea sends out a sonar ping that ripples across the
-// waves. Rendering pauses when the hero is off screen.
+// Moving the cursor through the sea leaves a wake: a dip under the cursor and
+// small ripples shed along its path. Rendering pauses when the hero is off screen.
 (() => {
     const canvas = document.getElementById('sea');
     if (!canvas || !canvas.getContext) return;
@@ -18,10 +18,12 @@
     let horizon = 0, lines = 0, step = 8;
     let temple = null;
 
-    const mouse = { x: -9999, y: -9999, inside: false };
-    const pings = [];             // {x, y, t0}
-    const PING_LIFE = 2600;       // ms
-    const PING_SPEED = 0.5;       // px per ms
+    const mouse = { x: -9999, y: -9999, inside: false, sx: -9999, sy: -9999, presence: 0 };
+    const ripples = [];           // {x, y, t0, amp}
+    const RIPPLE_LIFE = 1700;     // ms
+    const RIPPLE_SPEED = 0.11;    // px per ms
+    const MAX_RIPPLES = 48;
+    let lastDrop = null;
     const start = performance.now();
 
     function resize() {
@@ -227,28 +229,52 @@
             Math.sin(x * 0.004 * freq + s * 0.35 + i * 0.07) * 0.6;
         let y = baseY + v * amp;
 
-        // sonar pings: an expanding ring, flattened by the sea's perspective
-        for (let p = 0; p < pings.length; p++) {
-            const pg = pings[p];
-            const age = t - pg.t0;
-            if (age < 0 || age > PING_LIFE) continue;
-            const radius = age * PING_SPEED;
-            const dx = x - pg.x;
-            const dy = (baseY - pg.y) * 2.6;
-            const d = Math.sqrt(dx * dx + dy * dy);
-            const off = d - radius;
-            if (off > 60 || off < -60) continue;
-            const fade = 1 - age / PING_LIFE;
-            y -= Math.exp(-(off * off) / (2 * 18 * 18)) * fade * fade * (10 + 22 * k);
+        // wake: ripples shed along the cursor's path (only those near this line)
+        const near = lineRipples;
+        let wake = 0;
+        for (let p = 0; p < near.length; p++) {
+            const rp = near[p];
+            const age = t - rp.t0;
+            const radius = 6 + age * RIPPLE_SPEED;
+            const dx = x - rp.x;
+            if (dx > radius + 40 || dx < -radius - 40) continue;
+            const dy = (baseY - rp.y) * 2.4;
+            const off = Math.sqrt(dx * dx + dy * dy) - radius;
+            if (off > 44 || off < -44) continue;
+            const fade = 1 - age / RIPPLE_LIFE;
+            wake += Math.exp(-(off * off) / 520) * Math.cos(off * 0.13) * fade * fade * rp.amp;
+        }
+        if (wake) {
+            const cap = 1.6;
+            wake = wake > cap ? cap : wake < -cap ? -cap : wake;
+            y -= wake * (3 + 11 * k);
+        }
+        // the hull: water pressed down right under the cursor, piled up around it
+        if (mouse.presence > 0.01) {
+            const dx = x - mouse.sx;
+            const dy = (baseY - mouse.sy) * 2.4;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < 9000) {
+                const d = Math.sqrt(d2);
+                y += mouse.presence * (4 + 10 * k) * (Math.exp(-d2 / 450) - 0.45 * Math.exp(-((d - 34) * (d - 34)) / 220));
+            }
         }
         return y;
     }
 
+    const lineRipples = [];
     function drawSea(t) {
+        for (let p = ripples.length - 1; p >= 0; p--) if (t - ripples[p].t0 > RIPPLE_LIFE) ripples.splice(p, 1);
         const depth = h - horizon + 24;
         for (let i = 0; i < lines; i++) {
             const k = i / (lines - 1);
             const baseY = horizon + depth * Math.pow(k, 1.75);
+            lineRipples.length = 0;
+            for (let p = 0; p < ripples.length; p++) {
+                const rp = ripples[p];
+                const reach = 6 + (t - rp.t0) * RIPPLE_SPEED + 40;
+                if (Math.abs(baseY - rp.y) * 2.4 < reach) lineRipples.push(rp);
+            }
             ctx.beginPath();
             ctx.moveTo(-10, waveY(-10, i, t, baseY, k));
             for (let x = -10 + step; x <= w + 10; x += step) {
@@ -262,37 +288,6 @@
             ctx.strokeStyle = `rgba(${CREAM}, ${(0.18 + 0.62 * Math.pow(k, 0.8)).toFixed(3)})`;
             ctx.lineWidth = i === 0 ? 1.1 : 1;
             ctx.stroke();
-        }
-    }
-
-    // ---- Ping rings drawn on top of the sea ----
-    function drawPings(t) {
-        for (let i = pings.length - 1; i >= 0; i--) {
-            const pg = pings[i];
-            const age = t - pg.t0;
-            if (age > PING_LIFE) { pings.splice(i, 1); continue; }
-            if (age < 0) continue;
-            const fade = 1 - age / PING_LIFE;
-            const r = age * PING_SPEED;
-            ctx.save();
-            ctx.beginPath();
-            ctx.rect(0, horizon + 2, w, h);
-            ctx.clip();
-            ctx.strokeStyle = `rgba(${CREAM}, ${(0.45 * fade).toFixed(3)})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.ellipse(pg.x, pg.y, r, r / 2.6, 0, 0, Math.PI * 2);
-            ctx.stroke();
-            // origin marker + readout
-            ctx.fillStyle = SIGNAL;
-            ctx.globalAlpha = Math.min(1, fade * 1.6);
-            ctx.beginPath();
-            ctx.arc(pg.x, pg.y, 3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.fillStyle = `rgba(${CREAM}, 0.9)`;
-            ctx.font = '500 10px "IBM Plex Mono", ui-monospace, monospace';
-            ctx.fillText(`PING ${String(pg.n).padStart(2, '0')} \u00B7 ${(r / 40).toFixed(1)} NM`, pg.x + 10, pg.y + 16);
-            ctx.restore();
         }
     }
 
@@ -324,13 +319,18 @@
         const eased = 1 - Math.pow(1 - rise, 3);
 
 
+        const overSea = mouse.inside && mouse.y > horizon - 6;
+        mouse.presence += ((overSea ? 1 : 0) - mouse.presence) * 0.08;
+        if (mouse.sx < -999) { mouse.sx = mouse.x; mouse.sy = mouse.y; }
+        mouse.sx += (mouse.x - mouse.sx) * 0.25;
+        mouse.sy += (Math.max(mouse.y, horizon) - mouse.sy) * 0.25;
+
         ctx.fillStyle = BLUE;
         ctx.fillRect(0, 0, w, h);
         drawGrid();
         drawRing(t, eased);
         drawTemple(eased, t);
         drawSea(reduceMotion ? 0 : t);
-        drawPings(t);
         drawReticle();
     }
 
@@ -351,27 +351,24 @@
     }
     document.addEventListener('visibilitychange', () => (document.hidden ? pause() : play()));
 
-    // ---- Pointer ----
+    // ---- Pointer: hover only, so scrolling and tapping are never affected ----
     hero.addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
         const r = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - r.left;
-        mouse.y = e.clientY - r.top;
-        mouse.inside = e.pointerType === 'mouse';
-        if (reduceMotion) draw(performance.now());
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        mouse.x = x; mouse.y = y; mouse.inside = true;
+        if (reduceMotion || y < horizon - 6) { lastDrop = null; return; }
+        const now = performance.now() - start;
+        if (!lastDrop) { lastDrop = { x, y, t: now }; return; }
+        const dist = Math.hypot(x - lastDrop.x, y - lastDrop.y);
+        if (dist >= 22) {
+            const speed = dist / Math.max(16, now - lastDrop.t); // px per ms
+            ripples.push({ x, y: Math.max(y, horizon + 4), t0: now, amp: Math.min(1, 0.3 + speed * 0.6) });
+            if (ripples.length > MAX_RIPPLES) ripples.shift();
+            lastDrop = { x, y, t: now };
+        }
     });
-    hero.addEventListener('pointerleave', () => { mouse.inside = false; });
-
-    let pingCount = 0;
-    function ping(x, y, delay) {
-        if (reduceMotion) return;
-        pings.push({ x, y: Math.max(y, horizon + 14), t0: performance.now() - start + (delay || 0), n: ++pingCount });
-        if (pings.length > 5) pings.shift();
-    }
-    hero.addEventListener('pointerdown', (e) => {
-        if (e.target.closest('a, button')) return;
-        const r = canvas.getBoundingClientRect();
-        ping(e.clientX - r.left, e.clientY - r.top);
-    });
+    hero.addEventListener('pointerleave', () => { mouse.inside = false; lastDrop = null; });
 
     let rt = 0;
     window.addEventListener('resize', () => {
@@ -385,7 +382,5 @@
         if (document.fonts) document.fonts.ready.then(() => draw(performance.now()));
     } else {
         play();
-        // one ping once the temple has risen, so visitors see what the sea does
-        ping(temple.cx - temple.w * 0.15, horizon + (h - horizon) * 0.45, 3000);
     }
 })();
