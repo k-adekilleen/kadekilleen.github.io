@@ -310,6 +310,8 @@ main { flex: 1; width: 100%; }
 
 .hero {
     position: relative;
+    cursor: crosshair;
+    -webkit-tap-highlight-color: transparent;
     margin: 12px;
     min-height: calc(100svh - 64px - 24px);
     background: var(--blue);
@@ -367,7 +369,7 @@ main { flex: 1; width: 100%; }
 .hero-title {
     font-family: var(--serif);
     font-weight: 500;
-    font-size: clamp(42px, 6.4vw, 96px);
+    font-size: clamp(68px, 11vw, 168px);
     line-height: 0.92;
     letter-spacing: -0.015em;
 }

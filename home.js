@@ -1,7 +1,8 @@
 // Home hero: a temple rising out of a line-drawn sea.
 // Plain 2D canvas, no libraries. Waves are drawn back-to-front and each one is
 // filled underneath, so nearer swells hide the ones (and the temple) behind them.
-// The cursor leaves a wake. Rendering pauses when the hero is off screen.
+// Clicking or tapping the sea sends out a sonar ping that ripples across the
+// waves. Rendering pauses when the hero is off screen.
 (() => {
     const canvas = document.getElementById('sea');
     if (!canvas || !canvas.getContext) return;
@@ -17,7 +18,10 @@
     let horizon = 0, lines = 0, step = 8;
     let temple = null;
 
-    const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999, energy: 0, inside: false };
+    const mouse = { x: -9999, y: -9999, inside: false };
+    const pings = [];             // {x, y, t0}
+    const PING_LIFE = 2600;       // ms
+    const PING_SPEED = 0.5;       // px per ms
     const start = performance.now();
 
     function resize() {
@@ -223,15 +227,19 @@
             Math.sin(x * 0.004 * freq + s * 0.35 + i * 0.07) * 0.6;
         let y = baseY + v * amp;
 
-        // wake: a lifted, rippling bump under the cursor
-        if (mouse.energy > 0.01) {
-            const dx = x - mouse.x;
-            const dy = baseY - mouse.y;
-            const sx = 90 + k * 60;
-            const g = Math.exp(-(dx * dx) / (2 * sx * sx) - (dy * dy) / (2 * 70 * 70));
-            if (g > 0.002) {
-                y -= g * mouse.energy * (14 + 26 * k) * (0.6 + 0.4 * Math.cos(dx * 0.045 - s * 6));
-            }
+        // sonar pings: an expanding ring, flattened by the sea's perspective
+        for (let p = 0; p < pings.length; p++) {
+            const pg = pings[p];
+            const age = t - pg.t0;
+            if (age < 0 || age > PING_LIFE) continue;
+            const radius = age * PING_SPEED;
+            const dx = x - pg.x;
+            const dy = (baseY - pg.y) * 2.6;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            const off = d - radius;
+            if (off > 60 || off < -60) continue;
+            const fade = 1 - age / PING_LIFE;
+            y -= Math.exp(-(off * off) / (2 * 18 * 18)) * fade * fade * (10 + 22 * k);
         }
         return y;
     }
@@ -254,6 +262,37 @@
             ctx.strokeStyle = `rgba(${CREAM}, ${(0.18 + 0.62 * Math.pow(k, 0.8)).toFixed(3)})`;
             ctx.lineWidth = i === 0 ? 1.1 : 1;
             ctx.stroke();
+        }
+    }
+
+    // ---- Ping rings drawn on top of the sea ----
+    function drawPings(t) {
+        for (let i = pings.length - 1; i >= 0; i--) {
+            const pg = pings[i];
+            const age = t - pg.t0;
+            if (age > PING_LIFE) { pings.splice(i, 1); continue; }
+            if (age < 0) continue;
+            const fade = 1 - age / PING_LIFE;
+            const r = age * PING_SPEED;
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(0, horizon + 2, w, h);
+            ctx.clip();
+            ctx.strokeStyle = `rgba(${CREAM}, ${(0.45 * fade).toFixed(3)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.ellipse(pg.x, pg.y, r, r / 2.6, 0, 0, Math.PI * 2);
+            ctx.stroke();
+            // origin marker + readout
+            ctx.fillStyle = SIGNAL;
+            ctx.globalAlpha = Math.min(1, fade * 1.6);
+            ctx.beginPath();
+            ctx.arc(pg.x, pg.y, 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = `rgba(${CREAM}, 0.9)`;
+            ctx.font = '500 10px "IBM Plex Mono", ui-monospace, monospace';
+            ctx.fillText(`PING ${String(pg.n).padStart(2, '0')} \u00B7 ${(r / 40).toFixed(1)} NM`, pg.x + 10, pg.y + 16);
+            ctx.restore();
         }
     }
 
@@ -284,10 +323,6 @@
         const rise = reduceMotion ? 1 : Math.min(1, Math.max(0, (t - 250) / 2600));
         const eased = 1 - Math.pow(1 - rise, 3);
 
-        // ease the wake toward the pointer
-        mouse.x += (mouse.tx - mouse.x) * 0.12;
-        mouse.y += (mouse.ty - mouse.y) * 0.12;
-        mouse.energy += ((mouse.inside ? 1 : 0) - mouse.energy) * 0.05;
 
         ctx.fillStyle = BLUE;
         ctx.fillRect(0, 0, w, h);
@@ -295,6 +330,7 @@
         drawRing(t, eased);
         drawTemple(eased, t);
         drawSea(reduceMotion ? 0 : t);
+        drawPings(t);
         drawReticle();
     }
 
@@ -318,13 +354,24 @@
     // ---- Pointer ----
     hero.addEventListener('pointermove', (e) => {
         const r = canvas.getBoundingClientRect();
-        mouse.tx = e.clientX - r.left;
-        mouse.ty = e.clientY - r.top;
-        if (!mouse.inside) { mouse.x = mouse.tx; mouse.y = mouse.ty; }
-        mouse.inside = true;
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+        mouse.inside = e.pointerType === 'mouse';
         if (reduceMotion) draw(performance.now());
     });
     hero.addEventListener('pointerleave', () => { mouse.inside = false; });
+
+    let pingCount = 0;
+    function ping(x, y, delay) {
+        if (reduceMotion) return;
+        pings.push({ x, y: Math.max(y, horizon + 14), t0: performance.now() - start + (delay || 0), n: ++pingCount });
+        if (pings.length > 5) pings.shift();
+    }
+    hero.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('a, button')) return;
+        const r = canvas.getBoundingClientRect();
+        ping(e.clientX - r.left, e.clientY - r.top);
+    });
 
     let rt = 0;
     window.addEventListener('resize', () => {
@@ -338,5 +385,7 @@
         if (document.fonts) document.fonts.ready.then(() => draw(performance.now()));
     } else {
         play();
+        // one ping once the temple has risen, so visitors see what the sea does
+        ping(temple.cx - temple.w * 0.15, horizon + (h - horizon) * 0.45, 3000);
     }
 })();
