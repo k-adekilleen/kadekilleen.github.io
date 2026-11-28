@@ -9,8 +9,8 @@
     if (!canvas || !stage || !canvas.getContext) return;
     const ctx = canvas.getContext('2d');
 
-    const BLUE = '#1E37C8';
-    const OCEAN = '#1A2FB0';
+    const BLUE = '#1D31B4';
+    const OCEAN = '#18299A';
     const CREAM = '238, 233, 222';
     const SIGNAL = '#E8552A';
     const DEG = Math.PI / 180;

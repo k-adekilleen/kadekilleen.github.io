@@ -8,7 +8,7 @@
     const ctx = canvas.getContext('2d');
     const hero = canvas.parentElement;
 
-    const BLUE = '#1E37C8';
+    const BLUE = '#1D31B4';
     const CREAM = '238, 233, 222';
     const SIGNAL = '#E8552A';
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
