@@ -873,12 +873,13 @@ main .about-first ~ .section .section-head h2,
 .section-head.with-art .head-art {
     position: absolute;
     right: 0;
-    top: 50%;
-    width: clamp(120px, 18vw, 200px);
-    transform: translateY(-50%);
+    top: 12px;
+    bottom: calc(12px - clamp(32px, 5vw, 56px));
+    aspect-ratio: 1;
     color: var(--accent);
     opacity: 0.22;
     pointer-events: none;
 }
-.section-head.with-art .head-art svg { width: 100%; height: auto; animation: spin 240s linear infinite; }
-@media (prefers-reduced-motion: reduce) { .section-head.with-art .head-art svg { animation: none; } }
+.section-head.with-art .head-art svg { width: 100%; height: 100%; }
+.section-head.with-art .head-art svg.spin { animation: spin 240s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .section-head.with-art .head-art svg.spin { animation: none; } }
