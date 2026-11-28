@@ -1,82 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kade Killeen</title>
     <meta name="description" content="Kade Killeen works at an early-stage maritime logistics startup and writes about defense, technology, and global security.">
     <meta name="author" content="Kade Killeen">
+    <meta name="theme-color" content="#0B0D16">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Kade Killeen">
-    <meta property="og:description" content="I work at an early-stage maritime logistics startup and write about defense, technology, and global security.">
+    <meta property="og:description" content="Kade Killeen works at an early-stage maritime logistics startup and writes about defense, technology, and global security.">
     <meta property="og:url" content="https://kadekilleen.github.io/">
-    <meta property="og:image" content="https://kadekilleen.github.io/assets/headshot-color.jpg">
+    <meta property="og:image" content="https://kadekilleen.github.io/assets/og-card.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Kade Killeen">
-    <meta name="twitter:description" content="I work at an early-stage maritime logistics startup and write about defense, technology, and global security.">
-    <meta name="twitter:image" content="https://kadekilleen.github.io/assets/headshot-color.jpg">
+    <meta name="twitter:description" content="Kade Killeen works at an early-stage maritime logistics startup and writes about defense, technology, and global security.">
+    <meta name="twitter:image" content="https://kadekilleen.github.io/assets/og-card.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="style.css?v=26">
+    <link rel="stylesheet" href="style.css?v=34">
+    <script>document.documentElement.classList.remove('no-js')</script>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="index.html" class="nav-logo" aria-label="Home">
-                <svg class="nav-logo-mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false">
-                    <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 7 V25"/>
-                        <path d="M13.5 7 L6 16 L13.5 25"/>
-                        <path d="M18.5 7 V25"/>
-                        <path d="M27 7 L19.5 16 L27 25"/>
-                    </g>
-                </svg>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Main">
+            <a href="index.html" class="brand" aria-label="Kade Killeen, home">
+                <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="square"><path d="M4 11.5 16 4.5l12 7z"/><path d="M5 14.5h22M5 26.5h22M3 29.5h26"/><path d="M8 14.5v12M13.3 14.5v12M18.7 14.5v12M24 14.5v12"/></g></svg>
+                <span class="brand-word">KK</span>
             </a>
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
             </button>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="active" aria-current="page"><span class="n">01</span>Home</a></li>
+                <li><a href="about.html"><span class="n">02</span>About</a></li>
+                <li><a href="projects.html"><span class="n">03</span>Projects</a></li>
+                <li><a href="contact.html"><span class="n">04</span>Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-upper">
-                <h1 class="hero-line">I work at an early-stage maritime logistics startup and write about defense, technology, and global security.</h1>
+    <main id="main">
+        <section class="hero" aria-label="Introduction">
+            <canvas class="hero-canvas" id="sea" aria-hidden="true"></canvas>
+
+            <div class="hero-hud">
+                <span class="hide-sm">Maritime &mdash; Defense &mdash; Technology</span><span class="show-sm">KK &mdash; Index</span>
+                <span class="live" data-utc>UTC --:--:--</span>
             </div>
 
-            <div class="hero-globe" aria-hidden="true">
-                <canvas id="globe"></canvas>
+            <div class="hero-copy">
+                <h1 class="hero-title">
+                    <span class="line"><span>Kade</span></span>
+                    <span class="line"><span><em>Killeen.</em></span></span>
+                </h1>
+                <p class="hero-sub">I work at an early-stage maritime logistics startup and write about defense, technology, and global security.</p>
             </div>
 
-            <p class="hero-caption"><span class="dot" aria-hidden="true">&#9679;</span>Real cost-exchange inversions from <a href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md" target="_blank" rel="noopener noreferrer">my research</a> &mdash; hover a red marker.</p>
-
+            <div class="hero-foot">
+                <a href="#focus" class="scroll-cue"><i aria-hidden="true"></i>Scroll</a>
+                <span class="hide-sm">30&deg;16&prime;N 97&deg;44&prime;W</span>
+                <span class="hide-sm">Move through the water</span>
+            </div>
         </section>
+
+        <section class="section" id="focus">
+            <div class="wrap">
+                <div class="intro">
+                    <p class="reveal">I grew up in Texas, studied business, engineering, and analytics at MIT, and then went across the pond to read for an MPhil in Technology Policy at Cambridge. Along the way I&rsquo;ve worked in defense strategy, supply chains, and applied AI and software.</p>
+                    <p class="reveal d1">My work, research, and interests fall into three areas: <em>maritime logistics</em>, <em>defense technology and policy</em>, and <em>emerging technology</em>.</p>
+                </div>
+                <div class="plates">
+                    <article class="plate reveal">
+                        <div class="plate-top"><span class="plate-num">I</span><span class="label">Work</span></div>
+                        <div class="plate-art"><svg viewBox="0 0 200 120" class="draw" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+<path d="M18 70h164l-16 22H36z"/>
+<path d="M40 70V56h90v14M40 56V42h72v14M58 42v28M76 42v28M94 42v28M112 56v14"/>
+<path d="M140 70V48h22v22M144 55h14M151 48V32"/>
+<path d="M0 104q12.5-8 25 0t25 0 25 0 25 0 25 0 25 0 25 0 25 0"/>
+<path d="M0 114q12.5-6 25 0t25 0 25 0 25 0 25 0 25 0 25 0 25 0" opacity=".5"/>
+</g></svg></div>
+                        <h3>Maritime logistics</h3>
+                        <p>Moving goods over water: rebuilding America&rsquo;s shipyards and maritime industry, and modernizing how ships, ports, and fleets run.</p>
+                    </article>
+                    <article class="plate reveal d1">
+                        <div class="plate-top"><span class="plate-num">II</span><span class="label">Research</span></div>
+                        <div class="plate-art"><svg viewBox="0 0 200 120" class="draw" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+<circle cx="74" cy="62" r="46"/><circle cx="74" cy="62" r="34"/>
+<path d="M14 116 168 10"/><path d="m168 10-15 4 7 8z"/>
+<path d="M136 80l26 26M162 80l-26 26"/>
+<circle cx="136" cy="80" r="7"/><circle cx="162" cy="80" r="7"/><circle cx="136" cy="106" r="7"/><circle cx="162" cy="106" r="7"/>
+<rect x="144" y="88" width="10" height="10"/>
+</g></svg></div>
+                        <h3>Defense tech &amp; policy</h3>
+                        <p>A few-hundred-dollar drone now trades against a multi-million-dollar tank. What that means for force design, procurement, and policy.</p>
+                    </article>
+                    <article class="plate reveal d2">
+                        <div class="plate-top"><span class="plate-num">III</span><span class="label">Curiosity</span></div>
+                        <div class="plate-art"><svg viewBox="0 0 200 120" class="draw" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.4">
+<path d="M30 30L70 18M30 30L70 46M30 30L70 74M30 30L70 102M30 60L70 18M30 60L70 46M30 60L70 74M30 60L70 102M30 90L70 18M30 90L70 46M30 90L70 74M30 90L70 102M82 18L122 18M82 18L122 46M82 18L122 74M82 18L122 102M82 46L122 18M82 46L122 46M82 46L122 74M82 46L122 102M82 74L122 18M82 74L122 46M82 74L122 74M82 74L122 102M82 102L122 18M82 102L122 46M82 102L122 74M82 102L122 102M134 18L172 45M134 18L172 75M134 46L172 45M134 46L172 75M134 74L172 45M134 74L172 75M134 102L172 45M134 102L172 75" stroke-width="0.8" opacity=".55"/>
+<circle cx="24" cy="30" r="6"/><circle cx="24" cy="60" r="6"/><circle cx="24" cy="90" r="6"/><circle cx="76" cy="18" r="6"/><circle cx="76" cy="46" r="6"/><circle cx="76" cy="74" r="6"/><circle cx="76" cy="102" r="6"/><circle cx="128" cy="18" r="6"/><circle cx="128" cy="46" r="6"/><circle cx="128" cy="74" r="6"/><circle cx="128" cy="102" r="6"/><circle cx="178" cy="45" r="6"/><circle cx="178" cy="75" r="6"/>
+<circle cx="178" cy="45" r="2.4" fill="currentColor"/>
+</g></svg></div>
+                        <h3>Emerging technology</h3>
+                        <p>Artificial intelligence and machine learning: how models learn from data, where they work, and how they change the way things get built.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 Kade Killeen</p>
-            <ul class="footer-links">
-                <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack</a></li>
-                <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
-            </ul>
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="meander" aria-hidden="true"></div>
+            <div class="footer-row">
+                <span class="footer-sig">Kade Killeen &middot; MMXXVI</span>
+                <ul class="footer-links">
+                    <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                    <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
+                </ul>
+            </div>
         </div>
     </footer>
 
-    <script src="main.js?v=9"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="globe.js?v=16"></script>
+    <script src="main.js?v=34"></script>
+    <script src="home.js?v=34"></script>
 </body>
 </html>

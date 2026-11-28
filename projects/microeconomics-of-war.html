@@ -1,83 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Microeconomics of Modern War - Kade Killeen</title>
+    <title>The Microeconomics of Modern War | Kade Killeen</title>
     <meta name="description" content="How cheap autonomous systems are inverting the cost-exchange ratios of modern war, and what that means for force design and procurement.">
     <meta name="author" content="Kade Killeen">
+    <meta name="theme-color" content="#0B0D16">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="The Microeconomics of Modern War">
+    <meta property="og:title" content="The Microeconomics of Modern War | Kade Killeen">
     <meta property="og:description" content="How cheap autonomous systems are inverting the cost-exchange ratios of modern war, and what that means for force design and procurement.">
     <meta property="og:url" content="https://kadekilleen.github.io/projects/microeconomics-of-war.html">
     <meta property="og:image" content="https://kadekilleen.github.io/assets/projects/microeconomics-of-war/f1_cost_exchange_ratios.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Microeconomics of Modern War">
+    <meta name="twitter:title" content="The Microeconomics of Modern War | Kade Killeen">
     <meta name="twitter:description" content="How cheap autonomous systems are inverting the cost-exchange ratios of modern war, and what that means for force design and procurement.">
     <meta name="twitter:image" content="https://kadekilleen.github.io/assets/projects/microeconomics-of-war/f1_cost_exchange_ratios.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-    <link rel="stylesheet" href="../style.css?v=26">
+    <link rel="stylesheet" href="../style.css?v=34">
+    <script>document.documentElement.classList.remove('no-js')</script>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="../index.html" class="nav-logo" aria-label="Home">
-                <svg class="nav-logo-mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true" focusable="false">
-                    <g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 7 V25"/>
-                        <path d="M13.5 7 L6 16 L13.5 25"/>
-                        <path d="M18.5 7 V25"/>
-                        <path d="M27 7 L19.5 16 L27 25"/>
-                    </g>
-                </svg>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Main">
+            <a href="../index.html" class="brand" aria-label="Kade Killeen, home">
+                <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="square"><path d="M4 11.5 16 4.5l12 7z"/><path d="M5 14.5h22M5 26.5h22M3 29.5h26"/><path d="M8 14.5v12M13.3 14.5v12M18.7 14.5v12M24 14.5v12"/></g></svg>
+                <span class="brand-word">KK</span>
             </a>
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+                <span></span><span></span><span></span>
             </button>
-            <ul class="nav-links">
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="../projects.html" class="active">Projects</a></li>
-                <li><a href="../contact.html">Contact</a></li>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index.html"><span class="n">01</span>Home</a></li>
+                <li><a href="../about.html"><span class="n">02</span>About</a></li>
+                <li><a href="../projects.html" class="active" aria-current="page"><span class="n">03</span>Projects</a></li>
+                <li><a href="../contact.html"><span class="n">04</span>Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <article class="page-section project-page">
-            <a class="back-link" href="../projects.html">&larr; All projects</a>
-            <h1>The Microeconomics of Modern War</h1>
-            <p class="project-meta">Defense economics &middot; Cost-exchange analysis &middot; Sourced dataset</p>
+    <main id="main">
+        <div class="wrap">
+            <header class="article-hero">
+                <a class="back-link" href="../projects.html">&larr; All projects</a>
+                <p class="label" style="margin-bottom:18px"><span style="color:var(--signal)">No. 01</span></p>
+                <h1>The Microeconomics of <em>Modern War</em></h1>
+                <ul class="article-meta"><li>Defense economics</li><li>Cost-exchange analysis</li><li>Sourced dataset</li></ul>
+            </header>
 
-            <p>Cheap autonomous systems are inverting the cost-exchange ratios of modern war. A few-hundred-dollar FPV drone now trades against a multi-million-dollar tank.</p>
-            <p>This project builds a sourced dataset of these pairings and argues what the shift means for force design and procurement.</p>
+            <section class="article-body">
+                <p class="label">&sect; Summary</p>
+                <div class="prose">
+                    <p>Cheap autonomous systems are inverting the cost-exchange ratios of modern war. A few-hundred-dollar FPV drone now trades against a multi-million-dollar tank.</p>
+                    <p>This project builds a sourced dataset of these pairings and argues what the shift means for force design and procurement.</p>
+                    <div class="stat-row"><div class="stat"><div class="v">22,500&times;</div><div class="k">Peak ratio, FPV vs T-90M</div></div><div class="stat"><div class="v">$500</div><div class="k">Cost of an FPV drone</div></div><div class="stat"><div class="v">4</div><div class="k">Theatres mapped</div></div></div>
+                </div>
+            </section>
 
-            <figure class="project-figure">
-                <img src="../assets/projects/microeconomics-of-war/f1_cost_exchange_ratios.png" alt="Bar chart of cost-exchange ratios on a log scale. An FPV drone against a T-90M tank ranges from 1,500x to 22,500x.">
-                <figcaption>Target cost divided by attacker system cost, log scale. Ranges span disagreement between sources.</figcaption>
+            <section class="globe-plate reveal" aria-label="Map of cost-exchange events">
+                <div class="globe-stage" id="globe-stage">
+                    <canvas id="war-globe" aria-hidden="true"></canvas>
+                    <div class="hud"><span>Fig. 1 &mdash; Cost-exchange events</span><span data-utc>UTC --:--:--</span></div>
+                    <div class="hint">Drag to rotate</div>
+                </div>
+                <div class="globe-panel">
+                    <p class="label">Documented inversions</p>
+                    <h2>Where cheap beats <em>expensive.</em></h2>
+                    <ol class="events" id="events">
+                        <li><button type="button" data-ev="0" aria-pressed="true"><span class="i">01</span><span class="t">Black Sea</span><span class="r">$250K sea drone vs $65M warship</span></button></li>
+                        <li><button type="button" data-ev="1" aria-pressed="false"><span class="i">02</span><span class="t">Donbas</span><span class="r">$500 FPV vs $1.5&ndash;4.5M tank</span></button></li>
+                        <li><button type="button" data-ev="2" aria-pressed="false"><span class="i">03</span><span class="t">Red Sea</span><span class="r">$2K drone vs $2M interceptor</span></button></li>
+                        <li><button type="button" data-ev="3" aria-pressed="false"><span class="i">04</span><span class="t">Nagorno-Karabakh</span><span class="r">245 tanks lost vs 36 (2020)</span></button></li>
+                    </ol>
+                </div>
+            </section>
+
+            <figure class="figure-plate reveal">
+                <img src="../assets/projects/microeconomics-of-war/f1_cost_exchange_ratios.png" alt="Bar chart of cost-exchange ratios on a log scale. An FPV drone against a T-90M tank ranges from 1,500x to 22,500x." loading="lazy">
+                <figcaption><b>Fig. 2</b><span>Target cost divided by attacker system cost, log scale. Ranges span disagreement between sources.</span></figcaption>
             </figure>
 
-            <a class="btn btn-primary" href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md" target="_blank" rel="noopener noreferrer">Read the full writeup &#8599;</a>
-        </article>
+            <div class="article-cta">
+                <a class="btn btn-blue" href="https://github.com/k-adekilleen/research-pipeline/blob/main/projects/microeconomics-of-war/output/draft.md" target="_blank" rel="noopener noreferrer">Read the full writeup <span class="arr">&#8599;</span></a>
+                <a class="btn" href="../projects.html">All projects</a>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 Kade Killeen</p>
-            <ul class="footer-links">
-                <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                <li><a href="https://github.com/k-adekilleen" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                <li><a href="https://substack.com/@kadekilleen" target="_blank" rel="noopener noreferrer">Substack</a></li>
-                <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
-            </ul>
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="meander" aria-hidden="true"></div>
+            <div class="footer-row">
+                <span class="footer-sig">Kade Killeen &middot; MMXXVI</span>
+                <ul class="footer-links">
+                    <li><a href="https://www.linkedin.com/in/kadekilleen" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                    <li><a href="mailto:kadekilleen23@gmail.com">Email</a></li>
+                </ul>
+            </div>
         </div>
     </footer>
 
-    <script src="../main.js?v=9"></script>
+    <script src="../main.js?v=34"></script>
+    <script src="../war-globe.js?v=34"></script>
 </body>
 </html>
