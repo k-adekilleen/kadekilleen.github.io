@@ -863,3 +863,21 @@ main { flex: 1; width: 100%; }
 .intro p:last-child { margin-bottom: 0; }
 .intro p em { font-style: italic; color: var(--accent); }
 .page-hero + .section { padding-top: clamp(8px, 2vw, 24px); }
+
+/* About: smaller section heads, voyage chart beside Experience */
+.about-first { padding-top: clamp(40px, 6vw, 72px); }
+.about-page-heads .section-head h2,
+main .about-first ~ .section .section-head h2,
+.about-first .section-head h2 { font-size: clamp(30px, 3.6vw, 46px); }
+.section-head.with-art { grid-template-columns: 1fr; align-items: end; }
+.head-art { color: var(--ink); max-width: 420px; }
+.voyage { width: 100%; height: auto; overflow: visible; }
+.voyage .ping-ring { transform-box: fill-box; transform-origin: center; animation: voyage-ping 2.4s var(--ease) infinite; }
+@keyframes voyage-ping { from { transform: scale(0.4); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .voyage .ping-ring { animation: none; opacity: .5; } }
+@media (min-width: 860px) {
+    .section-head.with-art { grid-template-columns: 1fr minmax(0, 420px); column-gap: 48px; }
+    .section-head.with-art .label { grid-column: 1 / -1; }
+    .section-head.with-art h2 { grid-column: 1; }
+    .section-head.with-art .head-art { grid-column: 2; grid-row: 2; justify-self: end; width: 100%; }
+}
